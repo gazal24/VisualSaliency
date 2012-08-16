@@ -3,7 +3,6 @@
 <%@ page import="java.sql.*" %>
 
 <html>
-
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
   </head>
@@ -14,10 +13,11 @@
 	  <div>
 	    Hello! <%= session.getAttribute( "theUname" ) %>
 	  </div>
-      </td></tr><tr><td>
+      </td></tr>
 	  <br>
 	  <br>
 	  <br>
+      <% String uname = (String) session.getAttribute("theUname"); %>
       <jsp:declaration>
 	
 	Statement stmt;
@@ -25,6 +25,23 @@
 	String url = "jdbc:mysql://localhost:3306/proj1";
 	
       </jsp:declaration>
+
+      <jsp:scriptlet><![CDATA[
+	 Class.forName("com.mysql.jdbc.Driver");
+	 con = DriverManager.getConnection(url, "root", "root"); 
+	 stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery("SELECT * from task WHERE uname = '" + uname +"'" );
+       
+         while(rs.next()) {
+           String task = rs.getString("name");
+           out.println("<tr><td>");
+           out.println(task);
+           out.println("</td></tr>");
+         }
+         con.close();
+       ]]></jsp:scriptlet>
+
+      <tr><td><br> <br>
 
       <form method=post action="savetask.jsp">
       	New Task :

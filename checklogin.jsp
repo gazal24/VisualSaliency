@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*" %>
-<html>
-<head>
+
 <%
    String uname = request.getParameter( "uname" );
    String passwd = request.getParameter( "passwd" );
@@ -50,15 +49,12 @@ con.close();
 ]]></jsp:scriptlet>
 
 <%
-   if(login_flag == 0)
-   response.sendRedirect("login.jsp");
-   else 
-   response.sendRedirect("newtask.jsp");
-
+    if(login_flag == 0) {
+	session.setAttribute("errMsg", "Incorrect username or password. Try again.");
+	response.sendRedirect("login.jsp");
+    }
+    else {
+	session.setAttribute("posMsg", "Welcome Back!.");
+	response.sendRedirect("newtask.jsp");
+    }
 %>
-   
-</head>
-
-<body>
-</body>
-</html>

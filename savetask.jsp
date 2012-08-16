@@ -2,8 +2,6 @@
 <%@ page errorPage="error.jsp" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
-<html>
-<head>	
 <%		
    String name = request.getParameter( "name" );
    Integer method_count = new Integer(1);
@@ -12,14 +10,8 @@
 
    session.setAttribute("theTask", name );
    session.setAttribute("theCount", method_count);
-%>
-<br>
-<% 
    out.println("Hello " + method_count);
 %>
-<br>
-<a href="nextpage.jsp">Continue</A>
-
   <jsp:declaration>
     
     Statement stmt;
@@ -67,8 +59,3 @@ con.close();
    else 
    response.sendRedirect("taskmethods.jsp");
 %>
-</head>
-
-<body>
-</body>
-</html>
