@@ -2,8 +2,6 @@
 <%@ page errorPage="error.jsp" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
-<html>
-<head>	
 <%		
    String id = request.getParameter( "id" );
 %>
@@ -16,8 +14,7 @@
     
   </jsp:declaration>
 
-  <jsp:scriptlet><![CDATA[
-
+<%
 Class.forName("com.mysql.jdbc.Driver");
 con = DriverManager.getConnection(url, "root", "root"); 
 String query =  "DELETE FROM `todo` WHERE `id` ="+ id;
@@ -25,12 +22,5 @@ stmt = con.createStatement();
 stmt.executeUpdate(query);
 con.close();
 
-]]></jsp:scriptlet>
-<%
    response.sendRedirect("todo.jsp");
 %>
-</head>
-
-<body>
-</body>
-</html>

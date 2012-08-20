@@ -9,7 +9,7 @@
   </head>
   <body>
     <table align = center>
-      <tr><td> <%@ include file = "errormsg.jsp" %> </td></tr>
+       <tr><td> <%@ include file = "errormsg.jsp" %> </td></tr>
       <tr><td>
 	  <br>
 	  <br>

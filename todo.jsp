@@ -41,8 +41,8 @@ con.close();
 
 ]]></jsp:scriptlet>
 <tr><td colspan = 3>
-    <form method=post action="submittodo.jsp">
-      <div class="field"> <input type=text name= todo size=20 placeholder="TODO">
+    <form method="post" action="submittodo.jsp">
+      <div class="field"> <input type="text" name="todo" size="20" placeholder="TODO">
 	<button type="create" class="positive" name="save"> 
 	  <img src="images/apply2.png" alt=""/>
           submit

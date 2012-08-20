@@ -46,6 +46,7 @@
         %>
 	 <tr>
 	   <td> <% out.print(m_name); %> </td>
+	   <td>	<input type=hidden name=mname value= <% out.print("'" + m_name + "'"); %>/>	</td>
 	   <td>	<input type="file" name= <% out.print("file"+i); %> />	</td>
 	 </tr>
 	 

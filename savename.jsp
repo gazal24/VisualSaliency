@@ -1,3 +1,4 @@
+<%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
 <%@ page import="java.sql.*" %>
@@ -30,6 +31,13 @@
 Class.forName("com.mysql.jdbc.Driver");
 con = DriverManager.getConnection(url, "root", "root"); 
 stmt = con.createStatement();
+
+String filePath = "/var/lib/tomcat6/webapps/tournament/uploads/" + uname;
+//String filePath = context.getInitParameter("file-upload");
+
+File dir = new File(filePath);
+dir.mkdir();
+
 
 int match = 0;
 int resultq = 0;
@@ -66,6 +74,6 @@ con.close();
 <%
     if (resultq == 1) {
 	session.setAttribute("posMsg", "Congratulations. You are registered successfully.");
-	response.sendRedirect("newtask.jsp");
+	response.sendRedirect("task.jsp");
     }
 %>

@@ -55,6 +55,6 @@ con.close();
     }
     else {
 	session.setAttribute("posMsg", "Welcome Back!.");
-	response.sendRedirect("newtask.jsp");
+	response.sendRedirect("task.jsp");
     }
 %>

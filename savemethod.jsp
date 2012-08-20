@@ -15,7 +15,6 @@
 
 <% 
    out.println("Hello " + name[0]);
-   out.println("Hello " + name[1]);
    out.println("count " + method_count);
    out.println("task_id " + task_id);
 %>

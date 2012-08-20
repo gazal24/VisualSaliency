@@ -1,20 +1,40 @@
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import="java.sql.*" %>
+
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.apache.commons.fileupload.*" %>
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ page import="org.apache.commons.io.output.*" %>
 
-<%
+<% 
+   Integer task_id = new Integer(1);
+   task_id =  Integer.parseInt((String)session.getAttribute( "theTask_ID" ));
    String uname = (String) session.getAttribute("theUname");
    String tname = (String) session.getAttribute("theTask");
+%>
+
+<%      
+Statement stmt;
+Connection con;
+String url = "jdbc:mysql://localhost:3306/proj1";
+
+Class.forName("com.mysql.jdbc.Driver");
+con = DriverManager.getConnection(url, "root", "root"); 
+String query = "SELECT * from method WHERE task_id=" + task_id;
+stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery(query);
+String mname;
+%>
 
 
+
+<%
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = "/var/lib/tomcat6/webapps/tournament/uploads/" +uname + "___" + tname + "/";
+   String filePath = "/var/lib/tomcat6/webapps/tournament/uploads/" +uname + "/" + tname + "/";
    //String filePath = context.getInitParameter("file-upload");
 
    File dir = new File(filePath);
@@ -37,7 +57,6 @@
       try{ 
          // Parse the request to get file items.
          List fileItems = upload.parseRequest(request);
-
          // Process the uploaded file items
          Iterator i = fileItems.iterator();
 
@@ -60,16 +79,21 @@
             // Write the file
 
             out.println( fileName.lastIndexOf("/"));
+	    rs.next();
+	    mname = rs.getString("name");
+	    
+            // if( fileName.lastIndexOf("/") >= 0 ){
 
-            if( fileName.lastIndexOf("/") >= 0 ){
-
-            file = new File( filePath + fileName.substring( fileName.lastIndexOf("/"))) ;
-            }else{
-            file = new File( filePath + fileName.substring(fileName.lastIndexOf("/")+1)) ;
-            out.println(file.exists());
-            }
+            // file = new File( filePath + fileName.substring( fileName.lastIndexOf("/"))) ;
+            // }else{
+            // file = new File( filePath + fileName.substring(fileName.lastIndexOf("/")+1)) ;
+            // out.println(file.exists());
+            // }
+	    file = new File( filePath + mname + ".jpg");
+	    
             fi.write( file ) ;
             out.println("Uploaded Filename: " + filePath + fileName + "<br>");
+            out.println("Filename: "  + fileName + "<br>");
             }
          }
          out.println("</body>");
@@ -77,7 +101,7 @@
       }catch(Exception ex) {
          out.println(ex);
       }
-   }else{
+   } else {
       out.println("<html>");
       out.println("<head>");
       out.println("<title>Servlet upload</title>");  
