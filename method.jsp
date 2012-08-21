@@ -39,6 +39,16 @@
 	 
          rs = stmt.executeQuery("SELECT * from method WHERE task_id=" + task_id );
 	 String img_path;
+	 img_path = "uploads/" + uname + "/" + tname + "/" + "original" + ".jpg";
+      %>
+      <tr>
+	<td class="buttons" width="500" align="center" colspan="3"><br>
+	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> height=100px width= 150px /> <br/>
+	  <a class="regular"> <% out.print("Original Image"); %> </a>
+       </tdf>
+      </tr>
+
+      <%
 	 out.println("<tr>");
          while(rs.next()) {
          String method = rs.getString("name"); 
