@@ -35,7 +35,13 @@
   <body>
     <table align = center>
       <form action="saveimage.jsp" method="post" enctype="multipart/form-data">
-	<tr><td colspan =2 align = center> Select files to upload </td></tr>
+	<tr><td colspan =2 align = center> Select files to upload 
+	    <br /><br /></td></tr>
+	<tr>
+	  <td>Original Image </td>
+	  <td>	 </td>
+	   <td>	<input type="file" name="original" /></td>
+	</tr>
 	<%
 	   int i;
 	   String m_name;

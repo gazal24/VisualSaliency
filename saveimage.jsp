@@ -1,6 +1,5 @@
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
 <%@ page import="java.sql.*" %>
-
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.apache.commons.fileupload.*" %>
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
@@ -26,8 +25,6 @@ stmt = con.createStatement();
 ResultSet rs = stmt.executeQuery(query);
 String mname;
 %>
-
-
 
 <%
    File file ;
@@ -60,6 +57,8 @@ String mname;
          // Process the uploaded file items
          Iterator i = fileItems.iterator();
 
+	 int method_flag = 0;
+	 mname = "original";
          out.println("<html>");
          out.println("<head>");
          out.println("<title>JSP File upload</title>");  
@@ -79,8 +78,11 @@ String mname;
             // Write the file
 
             out.println( fileName.lastIndexOf("/"));
-	    rs.next();
-	    mname = rs.getString("name");
+	    if(method_flag == 1) {
+		rs.next();
+		mname = rs.getString("name");
+	    }
+	    method_flag = 1;
 	    
             // if( fileName.lastIndexOf("/") >= 0 ){
 

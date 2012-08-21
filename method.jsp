@@ -14,8 +14,8 @@
      String uname = (String) session.getAttribute("theUname");
   %>
     <div align="center" width="800">
-      <%@ include file = "errormsg.jsp" %>
       Hello! <%= session.getAttribute( "theUname" ) %>
+      <%@ include file = "errormsg.jsp" %>
     </div>
     <div width="800">
       <table align="center" width="600">
@@ -39,7 +39,7 @@
 	 
          rs = stmt.executeQuery("SELECT * from method WHERE task_id=" + task_id );
 	 String img_path;
-	 out.println("</tr>");
+	 out.println("<tr>");
          while(rs.next()) {
          String method = rs.getString("name"); 
 	 img_path = "uploads/" + uname + "/" + tname + "/" + method + ".jpg";

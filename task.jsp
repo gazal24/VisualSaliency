@@ -20,20 +20,17 @@
     <!-- </div> -->
 
     <div align="center" width="800">
+      Hello! <%= session.getAttribute( "theUname" ) %><br />
       <%@ include file = "errormsg.jsp" %>
     </div>
-    <div>
-      <table align = center>
-	<tr><td align = right>
-	    Hello! <%= session.getAttribute( "theUname" ) %>
-	    <br> <br>
-	</td></tr>
+    <div width="800">
+      <table align="center" width="600">
 	<% String uname = (String) session.getAttribute("theUname"); %>
 	<jsp:declaration>
 	  
 	  Statement stmt;
 	  Connection con;
-	String url = "jdbc:mysql://localhost:3306/proj1";
+	  String url = "jdbc:mysql://localhost:3306/proj1";
 	  
       </jsp:declaration>
 
@@ -43,18 +40,30 @@
 	 stmt = con.createStatement();
          ResultSet rs = stmt.executeQuery("SELECT * from task WHERE uname = '" + uname +"'" );
        
+	 int counter = 0;
+	 String img_path;
+ 	 out.println("<tr>");
          while(rs.next()) {
-           String task = rs.getString("name"); 
+           String tname = rs.getString("name"); 
            String task_id = rs.getString("id");
+	   img_path = "uploads/" + uname + "/" + tname + "/" + "original" + ".jpg";
+  	   if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
       %> 
-      <tr><td class = "buttons" width = 500><a class = "regular" href = <% out.print("method.jsp?taskid="+task_id); %> > <% out.print(task); %> </td></tr>
+	<td class="buttons" width="500" align="center"><br>
+	 <img src= <% out.print(img_path);%> alt= <% out.print(tname);%> height=100px width= 150px /> <br/>
+	  <a class="regular" href=<% out.print("method.jsp?taskid="+task_id); %> > <% out.print(tname); %> </td>
         <%
+	 counter++;
          }
          con.close();
 	%>
-
-      <tr><td><br> <br>
-
+	</tr>
+      </table>
+    </div>
+    <div align="center">
+    <table>
+      <tr><td align="center"><br> <br>
+	  
       <form method=post action="savetask.jsp">
       	New Task :
 	<div class="field"> <input type=text name= name size=20 placeholder="Task Name"> </div>
@@ -76,6 +85,7 @@
 	  </a>
 	</div>
       </form>
+      </td></tr></table>
       </div>
   </body>
 </html>
