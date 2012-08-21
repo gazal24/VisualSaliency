@@ -45,7 +45,7 @@
 	<td class="buttons" width="500" align="center" colspan="3"><br>
 	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> height=100px width= 150px /> <br/>
 	  <a class="regular"> <% out.print("Original Image"); %> </a>
-       </tdf>
+       </td>
       </tr>
 
       <%
