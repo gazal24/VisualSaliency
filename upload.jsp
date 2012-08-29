@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page errorPage="error.jsp" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
 
@@ -29,6 +28,8 @@
        con = DriverManager.getConnection(url, "root", "root"); 
        stmt = con.createStatement();
        ResultSet rs = stmt.executeQuery(query);
+       int i=0;
+
   ]]></jsp:scriptlet>
   
   </head>
@@ -39,11 +40,9 @@
 	    <br /><br /></td></tr>
 	<tr>
 	  <td>Original Image </td>
-	  <td>	 </td>
 	   <td>	<input type="file" name="original" /></td>
 	</tr>
 	<%
-	   int i;
 	   String m_name;
 	   Integer method_count =  (Integer) session.getAttribute( "theCount" );
 	   for(i=0; i<method_count; i++) {
@@ -52,7 +51,7 @@
         %>
 	 <tr>
 	   <td> <% out.print(m_name); %> </td>
-	   <td>	<input type=hidden name=mname value= <% out.print("'" + m_name + "'"); %>/>	</td>
+	   <td>	<input type="hidden" name=mname value= <% out.print("'" + m_name + "'"); %>/>	</td>
 	   <td>	<input type="file" name= <% out.print("file"+i); %> />	</td>
 	 </tr>
 	 

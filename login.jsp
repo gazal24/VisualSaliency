@@ -1,19 +1,34 @@
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <script>
+      function formReset() {
+      document.getElementById("login_form").reset();
+      }
+
+      function setTime() {
+      document.getElementById("time").innerHTML = Date();
+      setTimeout(function(){setTime()},900);
+      }
+      
+      window.onload = function() {
+      setTime();
+      }
+    </script>
   </head>
-  <body>
+  <body >
     <div align="center" width="800">
+      <p id="time"> </p>
       <%@ include file = "errormsg.jsp" %>
     </div>
     <div width="800">
-      <table align = center width="800">
+      <table align="center" width="800">
 	<tr>
-	  <td align = left>
+	  <td align="left">
 	    User Login :
-	    <form method=post action="checklogin.jsp">
-	      <div class="field"> <input type=text name= uname size=20 placeholder="Username"> </div>
-	      <div class="field"> <input type=password name= passwd size= 50 placeholder="Password"> </div>
+	    <form method="post" action="checklogin.jsp" id="login_form">
+	      <div class="field"> <input type="text" name="uname" size="20" placeholder="Username"> </div>
+	      <div class="field"> <input type="password" name="passwd" size="50" placeholder="Password"> </div>
 	      <br>
 	      <div class="buttons"> 
 		<button type="submit" class="positive" name="save"> 
@@ -29,8 +44,8 @@
 	  </td>
 	  <td>
 	    Player Login :
-	    <form method=post action="checklogin.jsp">
-	      <div class="field"> <input type=text name= uname size=20 placeholder="Player Name"> </div>
+	    <form method="post" action="checklogin.jsp">
+	      <div class="field"> <input type="text" name="uname" size="20" placeholder="Player Name"> </div>
 	      <br />
 	      <br />
 	      <br />
