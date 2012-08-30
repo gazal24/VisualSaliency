@@ -12,6 +12,7 @@
      Integer task_id = new Integer(1);
      task_id = Integer.parseInt(request.getParameter("taskid"));
      String uname = (String) session.getAttribute("theUname");
+     session.setAttribute("theTask_ID", task_id.toString());
   %>
     <div align="center" width="800">
       Hello! <%= session.getAttribute( "theUname" ) %>
