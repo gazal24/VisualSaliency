@@ -100,7 +100,7 @@ String mname;
          out.println("</body>");
          out.println("</html>");
 	 session.setAttribute("posMsg", "Congratulation. Task created successfully.");	 
-	 //response.sendRedirect("task.jsp");
+	 response.sendRedirect("task.jsp");
       }catch(Exception ex) {
          out.println(ex);
       }

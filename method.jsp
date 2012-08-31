@@ -71,11 +71,11 @@
     <br / > <br/>	<br / > <br/>
 
 <div>
-  <table align= center border=0> 
+  <table align="center" border="0"> 
     <tr>
-      <td id="light"><a class="super button pink" href="play.jsp?type=1">Knockout</a></td>
-      <td id="light"><a class="super button green"  href="play.jsp?type=2">Challenging</a></td>
-      <td id="light"><a class="super button blue"  href="play.jsp?type=3">Round-robin</a></td>
+      <td id="light"><a class="super button pink" href="play.jsp?type=0">Knockout</a></td>
+      <td id="light"><a class="super button green"  href="play.jsp?type=1">Challenging</a></td>
+      <td id="light"><a class="super button blue"  href="play.jsp?type=2">Round-robin</a></td>
       
 <!-- <div id="light" align="center"> -->
 <!--        <ul style="list-style: none;"> -->

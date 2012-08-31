@@ -1,7 +1,7 @@
 <%@ include file="strategies.jsp" %>
 <%
-
-int choice = Integer.parseInt(request.getParameter("choice"));
+      
+    int choice = Integer.parseInt(request.getParameter("choice"));
 
 if(choice == 0) {
     session.setAttribute("left", 1);
@@ -30,8 +30,7 @@ if(choice == 0) {
     int size = rs.getRow();
     rs.beforeFirst();
 
-    String method[] = new String[size]; // Change this limit;
-
+    String method[] = new String[size];
 
     while(rs.next()) {
 	method[i++] = rs.getString("name");
@@ -44,9 +43,10 @@ if(choice == 0) {
 
     out.print("{");
     out.print("\"left\": \"" + img_path1+ "\",");
-    out.print("\"right\": \"" + img_path2+ "\"");
+    out.print("\"left_method\": \"" + method[0]+ "\",");
+    out.print("\"right\": \"" + img_path2+ "\",");
+    out.print("\"right_method\": \"" + method[1]+ "\"");
     out.print("}");
-
 }
 
 //out.println(initGame());
@@ -59,8 +59,15 @@ else {
     
     int a =  (Integer) session.getAttribute( "left" );
     int b = (Integer)session.getAttribute( "right" );
-    //    int [] val = challenging(choice, a,b, methodCount);
-    int [] val = roundrobin(choice, a,b, methodCount);
+    int strategy = (Integer)session.getAttribute("theStrategy");
+    
+    int [] val = {};
+    if(strategy == 0)
+	val = knockout(choice, a,b, methodCount);
+    if(strategy == 1)
+	val = challenging(choice, a,b, methodCount);
+    if(strategy == 2)
+	val = roundrobin(choice, a,b, methodCount);
     
     if(val[0] == -1) {
 	out.print("{");
@@ -72,12 +79,14 @@ else {
 	session.setAttribute("left", val[0]);
 	session.setAttribute("right", val[1]);
 
-	//    out.println(val[0] +" and " + val[1]);
 	String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[val[0]-1] + ".jpg";
 	String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[val[1]-1] + ".jpg";
+
 	out.print("{");
 	out.print("\"left\": \"" + img_path1+ "\",");
-	out.print("\"right\": \"" + img_path2+ "\"");
+	out.print("\"left_method\": \"" + method[val[0]-1]+ "\",");
+	out.print("\"right\": \"" + img_path2+ "\",");
+	out.print("\"right_method\": \"" + method[val[1]-1]+ "\"");
 	out.print("}");
     }
 }

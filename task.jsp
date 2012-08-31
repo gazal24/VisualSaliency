@@ -66,8 +66,8 @@
 	  
       <form method=post action="savetask.jsp">
       	New Task :
-	<div class="field"> <input type=text name= name size=20 placeholder="Task Name"> </div>
-	<div class="field"> <input type=text name= count size= 50 placeholder="2"> </div>
+	<div class="field"> <input type="text" name="name" size="20" placeholder="Task Name"> </div>
+	<div class="field"> <input type="text" name="count" size="50" placeholder="2"> </div>
 	<br>
 	<div class="buttons"> 
 
