@@ -26,8 +26,13 @@
 	      if (xmldoc.readyState==4 && xmldoc.status==200) {
 		  resptxt = xmldoc.responseText;
 		  var responseJSON = eval('(' + resptxt + ')');
-		  document.getElementById("img1").src = responseJSON.left;
-		  document.getElementById("img2").src = responseJSON.right;
+		  if(responseJSON.left == "over") {
+		      document.getElementById("img1").src = "images/cross.png";
+		      document.getElementById("img2").src = "images/apply2.png";
+		  } else {
+		      document.getElementById("img1").src = responseJSON.left;
+		      document.getElementById("img2").src = responseJSON.right;
+		  }
 	      }
 	  }
       }

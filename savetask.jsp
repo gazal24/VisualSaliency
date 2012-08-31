@@ -41,7 +41,8 @@ query = "SELECT max(id) as task_id FROM `task` WHERE `name` = '" + name + "'";
 rs = stmt.executeQuery(query);
 resultq = 0;
 while(rs.next()) {
-    String task_id = rs.getString("task_id");
+    Integer task_id = new Integer(1);
+    task_id = Integer.parseInt(rs.getString("task_id"));
     session.setAttribute("theTask_ID", task_id);
     //    out.println("*** " + rs.getString("task_id"));
     resultq = 1;

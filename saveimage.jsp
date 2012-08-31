@@ -7,8 +7,7 @@
 <%@ page import="org.apache.commons.io.output.*" %>
 
 <% 
-   Integer task_id = new Integer(1);
-   task_id =  Integer.parseInt((String)session.getAttribute( "theTask_ID" ));
+   int task_id = (Integer)session.getAttribute( "theTask_ID" );
    String uname = (String) session.getAttribute("theUname");
    String tname = (String) session.getAttribute("theTask");
 %>
@@ -101,10 +100,11 @@ String mname;
          out.println("</body>");
          out.println("</html>");
 	 session.setAttribute("posMsg", "Congratulation. Task created successfully.");	 
-	 response.sendRedirect("task.jsp");
+	 //response.sendRedirect("task.jsp");
       }catch(Exception ex) {
          out.println(ex);
       }
+
    } else {
       out.println("<html>");
       out.println("<head>");

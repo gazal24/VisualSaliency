@@ -9,8 +9,7 @@
    method_count = Integer.parseInt(request.getParameter( "m_count" ));
 
    String uname = (String) session.getAttribute("theUname");
-   Integer task_id = new Integer(1);
-   task_id =  Integer.parseInt((String)session.getAttribute( "theTask_ID" ));
+   int task_id =  (Integer)session.getAttribute( "theTask_ID" );
 %>
 
 <% 

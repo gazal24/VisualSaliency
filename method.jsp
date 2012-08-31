@@ -12,7 +12,7 @@
      Integer task_id = new Integer(1);
      task_id = Integer.parseInt(request.getParameter("taskid"));
      String uname = (String) session.getAttribute("theUname");
-     session.setAttribute("theTask_ID", task_id.toString());
+     session.setAttribute("theTask_ID", task_id);
   %>
     <div align="center" width="800">
       Hello! <%= session.getAttribute( "theUname" ) %>
@@ -44,7 +44,7 @@
       %>
       <tr>
 	<td class="buttons" width="500" align="center" colspan="3"><br>
-	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> height=100px width= 150px /> <br/>
+	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> width= 150px /> <br/>
 	  <a class="regular"> <% out.print("Original Image"); %> </a>
        </td>
       </tr>
@@ -57,7 +57,7 @@
 	 if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
       %> 
        <td class="buttons" width="500" align="center"><br>
-	 <img src= <% out.print(img_path);%> alt= <% out.print(method);%> height=100px width= 150px /> <br/>
+	 <img src= <% out.print(img_path);%> alt= <% out.print(method);%> width= 150px /> <br/>
 	 <a class="regular"> <% out.print(method); %> </a>
       </td>
       <%
