@@ -10,11 +10,11 @@ if(choice == 0) {
     Statement stmt;
     Connection con;
     String url = "jdbc:mysql://localhost:3306/proj1";
-    
+
     Class.forName("com.mysql.jdbc.Driver");
     con = DriverManager.getConnection(url, "root", "root"); 
     stmt = con.createStatement();
-    
+
     Integer task_id = new Integer(1);
     task_id = Integer.parseInt((String)session.getAttribute( "theTask_ID" ));
     String uname = (String) session.getAttribute("theUname");
@@ -31,9 +31,14 @@ if(choice == 0) {
 	method[i++] = rs.getString("name");
     }
     session.setAttribute("theMethodArray", method);
+    String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[0] + ".jpg";
+    String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[1] + ".jpg";
 
-    out.println(method[0]);    
-    out.println(method[1]);    
+    out.print("{");
+    out.print("\"left\": \"" + img_path1+ "\",");
+    out.print("\"right\": \"" + img_path2+ "\"");
+    out.print("}");
+
 }
 
 //out.println(initGame());
@@ -53,6 +58,9 @@ else {
     //    out.println(val[0] +" and " + val[1]);
     String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[val[0]-1] + ".jpg";
     String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[val[1]-1] + ".jpg";
-    out.println(img_path1 + "," + img_path2);
+    out.print("{");
+    out.print("\"left\": \"" + img_path1+ "\",");
+    out.print("\"right\": \"" + img_path2+ "\"");
+    out.print("}");
 }
 %>
