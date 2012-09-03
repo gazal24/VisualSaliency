@@ -39,6 +39,7 @@
 	    <br /><br /></td></tr>
 	<tr>
 	  <td>Original Image </td>
+	  <td></td>
 	   <td>	<input type="file" name="original" /></td>
 	</tr>
 	<%

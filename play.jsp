@@ -33,16 +33,18 @@ session.setAttribute("theStrategy", strategy);
 	      if (xmldoc.readyState==4 && xmldoc.status==200) {
 		  resptxt = xmldoc.responseText;
 		  var responseJSON = eval('(' + resptxt + ')');
-		  if(responseJSON.left == "over") {
+		  if(responseJSON.left == "gameOver") {
 		      document.getElementById("img1_txt").innerHTML = "GAME";
 		      document.getElementById("img1").src = "images/cross.png";
 		      document.getElementById("img2").src = "images/apply2.png";
 		      document.getElementById("img2_txt").innerHTML = "OVER";
+		      document.getElementById("result").innerHTML = "Click to see result";
 		  } else {
 		      document.getElementById("img1_txt").innerHTML = responseJSON.left_method;
 		      document.getElementById("img1").src = responseJSON.left
 		      document.getElementById("img2_txt").innerHTML = responseJSON.right_method;
 		      document.getElementById("img2").src = responseJSON.right;
+		      document.getElementById("result").innerHTML = "";
 		  }
 	      }
 	  }
@@ -52,15 +54,18 @@ session.setAttribute("theStrategy", strategy);
 
   </head>
   <body align="center">
-    <p onclick="loadXMLDoc(0)"> Restart </p>
-    <p> 
+    <p onclick="loadXMLDoc(0)" align="center"> Restart </p>
+    <a href="result.jsp" id="result" align="center"> </a>
+    <p align="center"> 
       <% if(strategy==0) out.println("<a class=\"super button pink\"> Knockout"); %>
       <% if(strategy==1) out.println("<a class=\"super button green\"> Challenging"); %>
       <% if(strategy==2) out.println("<a class=\"super button blue\"> Round-robin"); %>
 </a>
     </p>
-    <div>
-      <table align="center" class="image_panel fixed">
+    <div align="center">
+      <table align="center" class="image_panel fixed" style="border-collapse: collapse">
+	<col class="players"/>
+	<col class="players"/>
 	<tr align="center">
 	  <th>
 	      <p id="img1_txt"></p>

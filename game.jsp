@@ -36,8 +36,15 @@ if(choice == 0) {
 	method[i++] = rs.getString("name");
     }
     
+    int[][] adjGraph = new int[i][i];
+    int [] score = new int[i];
+
     session.setAttribute("theMethodCount", i);    
     session.setAttribute("theMethodArray", method);
+    session.setAttribute("theAdjGraph", adjGraph);
+    session.setAttribute("theScore", score);
+
+
     String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[0] + ".jpg";
     String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[1] + ".jpg";
 
@@ -60,22 +67,33 @@ else {
     int a =  (Integer) session.getAttribute( "left" );
     int b = (Integer)session.getAttribute( "right" );
     int strategy = (Integer)session.getAttribute("theStrategy");
+    int [][]adjGraph = (int[][])session.getAttribute("theAdjGraph");
+    int []score = (int[])session.getAttribute("theScore");
     
     int [] val = {};
+    Object[] obj = new Object[2];
     if(strategy == 0)
-	val = knockout(choice, a,b, methodCount);
+	val = knockout(choice, a,b, methodCount, adjGraph, score);
     if(strategy == 1)
-	val = challenging(choice, a,b, methodCount);
+	obj = challenging(choice, a,b, methodCount, adjGraph, score);
     if(strategy == 2)
-	val = roundrobin(choice, a,b, methodCount);
+	obj = roundrobin(choice, a,b, methodCount, adjGraph, score);
+    
+    val = (int [])obj[0];
     
     if(val[0] == -1) {
 	out.print("{");
-	out.print("\"left\": \"" + "over" + "\",");
-	out.print("\"right\": \"" + "over" + "\"");
+	out.print("\"left\": \"" + "gameOver" + "\",");
+	out.print("\"right\": \"" + "gameOver" + "\"");
 	out.print("}");
+	
     }
     else {
+	adjGraph = (int [][])obj[1];
+	score = (int [])obj[2];
+	session.setAttribute("theAdjGraph", adjGraph);
+	session.setAttribute("theScore", score);
+
 	session.setAttribute("left", val[0]);
 	session.setAttribute("right", val[1]);
 

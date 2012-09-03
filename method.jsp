@@ -18,8 +18,6 @@
       Hello! <%= session.getAttribute( "theUname" ) %>
       <%@ include file = "errormsg.jsp" %>
     </div>
-    <div width="800">
-      <table align="center" width="600">
       <jsp:declaration>
 	
 	Statement stmt;
@@ -27,6 +25,7 @@
 	String url = "jdbc:mysql://localhost:3306/proj1";
 	
       </jsp:declaration>
+
 
       <%
 	 Class.forName("com.mysql.jdbc.Driver");
@@ -42,13 +41,21 @@
 	 String img_path;
 	 img_path = "uploads/" + uname + "/" + tname + "/" + "original" + ".jpg";
       %>
+    <div>
+      <table align="center" width="200">
       <tr>
 	<td class="buttons" width="500" align="center" colspan="3"><br>
 	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> width= 150px /> <br/>
 	  <a class="regular"> <% out.print("Original Image"); %> </a>
        </td>
       </tr>
+      </table>
+    </div>
+<br/>
 
+    <div class="img_thumb">
+      <table align="center" width="500">
+      <tr>
       <%
 	 out.println("<tr>");
          while(rs.next()) {
@@ -73,7 +80,8 @@
 <div>
   <table align="center" border="0"> 
     <tr>
-      <td id="light"><a class="super button pink" href="play.jsp?type=0">Knockout</a></td>
+      <!-- <td id="light"><a class="super button pink" href="play.jsp?type=0">Knockout</a></td> -->
+      <td id="light"><a class="super button pink">Knockout</a></td>
       <td id="light"><a class="super button green"  href="play.jsp?type=1">Challenging</a></td>
       <td id="light"><a class="super button blue"  href="play.jsp?type=2">Round-robin</a></td>
       

@@ -58,7 +58,19 @@ if(match == 1) {
     response.sendRedirect("register.jsp");
 } 
 else {
-    if(!passwd.equals(repasswd)) {
+    if(passwd == ""){
+	session.setAttribute("errMsg", "Password cannot be blank.");
+	response.sendRedirect("register.jsp");
+    }
+    else if(uname == ""){
+	session.setAttribute("errMsg", "Username cannot be blank.");
+	response.sendRedirect("register.jsp");
+    }
+    else if(name == ""){
+	session.setAttribute("errMsg", "Name cannot be blank.");
+	response.sendRedirect("register.jsp");
+    }
+    else if(!passwd.equals(repasswd)) {
 	session.setAttribute("errMsg", "Passwords do not match.");
 	response.sendRedirect("register.jsp");
     } 

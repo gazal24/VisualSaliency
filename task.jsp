@@ -5,7 +5,7 @@
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <link href="flash.css" rel="stylesheet" type="text/css">
+    <link href="button.css" rel="stylesheet" type="text/css">
   </head>
   <body>
 
@@ -23,7 +23,7 @@
       Hello! <%= session.getAttribute( "theUname" ) %><br />
       <%@ include file = "errormsg.jsp" %>
     </div>
-    <div width="800">
+    <div class="img_thumb">
       <table align="center" width="600">
 	<% String uname = (String) session.getAttribute("theUname"); %>
 	<jsp:declaration>
@@ -79,10 +79,7 @@
 	  <a href="task.jsp" class="regular">
             <img src="images/textfield_key.png" alt=""/>
             Reset
-	  </a>   <a href="index.jsp" class="negative">
-            <img src="images/cross.png" alt=""/>
-	    Back
-	  </a>
+	  </a> 
 	</div>
       </form>
       </td></tr></table>
