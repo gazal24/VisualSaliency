@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
+<%@ include file="dbconnect.jsp" %>
+
 
 <html>
   <head>
@@ -11,22 +12,10 @@
    int task_id =  (Integer)session.getAttribute( "theTask_ID" );
 %>
 
-  <jsp:declaration>
-      
-    Statement stmt;
-    Connection con;
-    String url = "jdbc:mysql://localhost:3306/proj1";
-    
-  </jsp:declaration>
-
-
   <jsp:scriptlet><![CDATA[
        String tname = (String) session.getAttribute("theTask");
        String query = "SELECT * FROM `method` WHERE `task_id` = " + task_id;
-       Class.forName("com.mysql.jdbc.Driver");
-       con = DriverManager.getConnection(url, "root", "root"); 
-       stmt = con.createStatement();
-       ResultSet rs = stmt.executeQuery(query);
+       rs = stmt.executeQuery(query);
        int i=0;
 
   ]]></jsp:scriptlet>

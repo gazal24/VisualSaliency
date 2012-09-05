@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
-<%@ page import="java.sql.*" %>
 
 <html>
 
@@ -14,7 +13,7 @@
   </head>
   <body>
     <div align="center">
-      <table align=center>
+      <table align="center">
 	<tr><td> <%@ include file = "errormsg.jsp" %> </td></tr>
 	</table>
     </div>
@@ -23,13 +22,6 @@
       <tr><td>
 	  <br>
 	  <br>
-      <jsp:declaration>
-	
-	Statement stmt;
-	Connection con;
-	String url = "jdbc:mysql://localhost:3306/";
-	
-      </jsp:declaration>
       <form id="register_form" method="get" action="savename.jsp">
 	<div class="field"> <input type="text" name="uname" size="20" placeholder="Username"> </div>
 	<div class="field"> <input type="text" name="name" size="50" placeholder="Name"> </div>

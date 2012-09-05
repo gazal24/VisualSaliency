@@ -1,10 +1,10 @@
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
-<%@ page import="java.sql.*" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.apache.commons.fileupload.*" %>
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ page import="org.apache.commons.io.output.*" %>
+<%@ include file="dbconnect.jsp"%>
 
 <% 
    int task_id = (Integer)session.getAttribute( "theTask_ID" );
@@ -13,15 +13,8 @@
 %>
 
 <%      
-Statement stmt;
-Connection con;
-String url = "jdbc:mysql://localhost:3306/proj1";
-
-Class.forName("com.mysql.jdbc.Driver");
-con = DriverManager.getConnection(url, "root", "root"); 
 String query = "SELECT * from method WHERE task_id=" + task_id;
-stmt = con.createStatement();
-ResultSet rs = stmt.executeQuery(query);
+rs = stmt.executeQuery(query);
 String mname;
 %>
 

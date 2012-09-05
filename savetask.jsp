@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
-<%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
+<%@ include file="dbconnect.jsp"%>
 <%		
    String name = request.getParameter( "name" );
    Integer method_count = new Integer(1);
@@ -12,22 +12,11 @@
    session.setAttribute("theCount", method_count);
    out.println("Hello " + method_count);
 %>
-  <jsp:declaration>
-    
-    Statement stmt;
-    Connection con;
-    String url = "jdbc:mysql://localhost:3306/proj1";
-    
-  </jsp:declaration>
-
   <jsp:scriptlet><![CDATA[
 
-Class.forName("com.mysql.jdbc.Driver");
-con = DriverManager.getConnection(url, "root", "root"); 
 String query =  "INSERT INTO `task` (`uname`, `name`, `method_count`) VALUES ('" + uname + "', '" + name + "', '" + method_count + "')" ;
-stmt = con.createStatement();
 int resultq = stmt.executeUpdate(query);
-ResultSet rs = stmt.executeQuery("SELECT * from task");
+rs = stmt.executeQuery("SELECT * from task");
 while(rs.next())
 {
 String out1 = rs.getString("uname");

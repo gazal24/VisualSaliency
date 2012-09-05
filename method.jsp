@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
-<%@ page import="java.sql.*" %>
-
+<%@ include file="dbconnect.jsp"%>
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
@@ -18,21 +17,9 @@
       Hello! <%= session.getAttribute( "theUname" ) %>
       <%@ include file = "errormsg.jsp" %>
     </div>
-      <jsp:declaration>
-	
-	Statement stmt;
-	Connection con;
-	String url = "jdbc:mysql://localhost:3306/proj1";
-	
-      </jsp:declaration>
-
-
       <%
-	 Class.forName("com.mysql.jdbc.Driver");
-	 con = DriverManager.getConnection(url, "root", "root"); 
-	 stmt = con.createStatement();
 	 
-	 ResultSet rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
+	 rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
 	 rs.next();
 	 String tname = rs.getString("name");
 	 int counter = 0;

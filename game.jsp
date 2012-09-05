@@ -1,4 +1,5 @@
 <%@ page import="java.lang.*" %>
+<%@ include file="dbconnect.jsp"%>
 <%@ include file="strategies.jsp" %>
 <%
       
@@ -8,17 +9,9 @@ if(choice == 0) {
     session.setAttribute("left", 1);
     session.setAttribute("right", 2);
 
-    Statement stmt;
-    Connection con;
-    String url = "jdbc:mysql://localhost:3306/proj1";
-
-    Class.forName("com.mysql.jdbc.Driver");
-    con = DriverManager.getConnection(url, "root", "root"); 
-    stmt = con.createStatement();
-
     int task_id = (Integer)session.getAttribute( "theTask_ID" );
     String uname = (String) session.getAttribute("theUname");
-    ResultSet rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
+    rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
     rs.next();
     String tname = rs.getString("name");
     session.setAttribute("theTaskName", tname);

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
-<%@ page import="java.sql.*" %>
+<%@ include file="dbconnect.jsp" %>
 
 <html>
 
@@ -13,20 +13,10 @@
     <br>
     <br>
     <table align = center>
+      
+      <jsp:scriptlet><![CDATA[
 
-      <jsp:declaration>
-	
-	Statement stmt;
-	Connection con;
-	String url = "jdbc:mysql://localhost:3306/proj1";
-	
-      </jsp:declaration>
-<jsp:scriptlet><![CDATA[
-
-Class.forName("com.mysql.jdbc.Driver");
-con = DriverManager.getConnection(url, "root", "root"); 
-stmt = con.createStatement();
-ResultSet rs = stmt.executeQuery("SELECT * from todo");
+rs = stmt.executeQuery("SELECT * from todo");
 	  
 
 while(rs.next())
