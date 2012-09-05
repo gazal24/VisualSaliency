@@ -4,11 +4,69 @@
       int game(int c) {
       return c*4;   
       }
-      
-      int[] knockout(int choice, int a, int b, int num_of_methods,  int [][]adjGraph, int[] score){
-	  int [] arr = {0,1};
-	  return  arr;  
+
+
+      // int[] knockout(int choice, int a, int b, int num_of_methods,  int [][]adjGraph, int[] score){
+
+      //    int [] arr = {0,1};
+      //    return  arr;  
+      // }
+
+      Object[] knockout(int choice, int a, int b, int [][]adjGraph, int[] score,
+		     int[] currentRound, int[] nextRound, int currentSize){
+
+	  Object[] obj = new Object[10];
+	  int x=currentRound[a-1];
+	  int y=currentRound[b-1];
+	  int i;
+	  if(choice==1) { //left image
+	      nextRound[a/2]=x;
+	      adjGraph[x-1][y-1] ++;
+	      score[x-1] = score[x-1] + score[y-1] + 1;
+	  }
+	  else if(choice==2) {
+	      nextRound[a/2]=y;
+	      adjGraph[y-1][x-1] ++;
+	      score[y-1] = score[x-1] + score[y-1] + 1;
+	  }
+
+	  while(1==1) {
+	      if(currentSize == 2) { // Came into Final Round
+		  a=-1;
+		  b=-1;
+		  for(i=0; i<currentSize/2; i++)
+		      currentRound[i] = nextRound[i];
+		  currentSize = currentSize/2;
+		  int arr[]= {a,b};
+		  return new Object[]{arr, adjGraph, score, currentRound, nextRound, currentSize}; 
+	      }
+	      else if(a == currentSize-1) { //reached the end of currentRound
+		  a=1;
+		  b=2;
+		  for(i=0; i<currentSize/2; i++)
+		      currentRound[i] = nextRound[i];
+		  currentSize = currentSize/2;
+		  int arr[]= {a,b};
+		  return new Object[]{arr, adjGraph, score, currentRound, nextRound, currentSize}; 
+		  //copy nextRound in currentRound and initialize nextRound with zeros and return
+	      }
+	      else { // if not the end, take next two players and....
+		  a+=2;
+		  b+=2;
+		  if(currentRound[b-1] == 0) { // ... if second player is zero then 'a' get BYES
+		      nextRound[a/2]=currentRound[a-1];
+		      continue;
+		  } else {  // ... otherwise they will play a match.
+		      int arr[]= {a,b};
+		      return new Object[]{arr, adjGraph, score, currentRound, nextRound, currentSize}; 
+		  }
+	      }
+	      
+	  }
+	  
       }
+    
+
 
 
 Object[] challenging(int choice, int a, int b, int num_of_methods, int [][]adjGraph, int[] score){

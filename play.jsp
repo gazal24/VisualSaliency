@@ -35,8 +35,8 @@ session.setAttribute("theStrategy", strategy);
 		  var responseJSON = eval('(' + resptxt + ')');
 		  if(responseJSON.left == "gameOver") {
 		      document.getElementById("img1_txt").innerHTML = "GAME";
-		      document.getElementById("img1").src = "images/cross.png";
-		      document.getElementById("img2").src = "images/apply2.png";
+		      document.getElementById("img1").src = "images/black.png";
+		      document.getElementById("img2").src = "images/black.png";
 		      document.getElementById("img2_txt").innerHTML = "OVER";
 		      document.getElementById("result").innerHTML = "Click to see result";
 		  } else {

@@ -1,3 +1,4 @@
+<%@ page import="java.lang.*" %>
 <%@ include file="strategies.jsp" %>
 <%
       
@@ -38,13 +39,51 @@ if(choice == 0) {
     
     int[][] adjGraph = new int[i][i];
     int [] score = new int[i];
+    int methodCount =  i;
 
-    session.setAttribute("theMethodCount", i);    
+    session.setAttribute("theMethodCount", methodCount);    
     session.setAttribute("theMethodArray", method);
     session.setAttribute("theAdjGraph", adjGraph);
     session.setAttribute("theScore", score);
 
+    int strategy = (Integer)session.getAttribute("theStrategy");
+    //  Special initializations for Knockout
+    int currentSize = (int) Math.round(Math.pow(2, Math.ceil(Math.log(methodCount)/Math.log(2))));
+    int[] currentRound = new int[currentSize];
+    int[] nextRound = new int[currentSize/2];
+    
+    if(strategy == 0) {
 
+	int player = 0;
+	for(i=0; i<currentSize-1; i+=2) // To fill ODD places.
+	    currentRound[i] = ++player;
+	for(i=1; i<currentSize; i+=2) { // To fill EVEN places.
+	    if(player == methodCount || player == 0) 
+		player = 0;
+	    else ++player;
+	    currentRound[i] = player;
+	}
+	session.setAttribute("theCurrentRound", currentRound);
+	session.setAttribute("theNextRound", nextRound);
+	session.setAttribute("theCurrentSize", currentSize);
+    }
+
+
+    if(strategy == 0) {
+	    
+    String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[currentRound[0]-1] + ".jpg";
+    String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[currentRound[1]-1] + ".jpg";
+
+    out.print("{");
+    out.print("\"left\": \"" + img_path1+ "\",");
+    out.print("\"left_method\": \"" + method[currentRound[0]-1]+ "\",");
+    out.print("\"right\": \"" + img_path2+ "\",");
+    out.print("\"right_method\": \"" + method[currentRound[1]-1]+ "\"");
+    out.print("}");
+
+    }
+
+    else {
     String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[0] + ".jpg";
     String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[1] + ".jpg";
 
@@ -54,6 +93,7 @@ if(choice == 0) {
     out.print("\"right\": \"" + img_path2+ "\",");
     out.print("\"right_method\": \"" + method[1]+ "\"");
     out.print("}");
+    }
 }
 
 //out.println(initGame());
@@ -71,9 +111,23 @@ else {
     int []score = (int[])session.getAttribute("theScore");
     
     int [] val = {};
-    Object[] obj = new Object[2];
-    if(strategy == 0)
-	val = knockout(choice, a,b, methodCount, adjGraph, score);
+    Object[] obj = new Object[10];
+    int []currentRound = new int[10];
+    if(strategy == 0) {
+	currentRound = (int[])session.getAttribute("theCurrentRound");    
+	int []nextRound = (int[])session.getAttribute("theNextRound");    
+	int currentSize = (Integer)session.getAttribute("theCurrentSize");
+
+	obj = knockout(choice, a,b, adjGraph, score, currentRound, nextRound, currentSize);
+	currentRound = (int [])obj[3];
+	nextRound = (int [])obj[4];
+	currentSize = (Integer)obj[5];
+
+	session.setAttribute("theCurrentRound", currentRound);
+	session.setAttribute("theNextRound", nextRound);
+	session.setAttribute("theCurrentSize", currentSize);
+    }
+
     if(strategy == 1)
 	obj = challenging(choice, a,b, methodCount, adjGraph, score);
     if(strategy == 2)
@@ -88,6 +142,7 @@ else {
 	out.print("}");
 	
     }
+
     else {
 	adjGraph = (int [][])obj[1];
 	score = (int [])obj[2];
@@ -97,15 +152,30 @@ else {
 	session.setAttribute("left", val[0]);
 	session.setAttribute("right", val[1]);
 
-	String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[val[0]-1] + ".jpg";
-	String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[val[1]-1] + ".jpg";
+	if(strategy == 0) {
+	    String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[currentRound[val[0]-1]-1] + ".jpg";
+	    String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[currentRound[val[1]-1]-1] + ".jpg";
+	    
+	    out.print("{");
+	    out.print("\"left\": \"" + img_path1+ "\",");
+	    out.print("\"left_method\": \"" + method[currentRound[val[0]-1]-1]+ "\",");
+	    out.print("\"right\": \"" + img_path2+ "\",");
+	    out.print("\"right_method\": \"" + method[currentRound[val[1]-1]-1]+ "\"");
+	    out.print("}");
+	}
 
-	out.print("{");
-	out.print("\"left\": \"" + img_path1+ "\",");
-	out.print("\"left_method\": \"" + method[val[0]-1]+ "\",");
-	out.print("\"right\": \"" + img_path2+ "\",");
-	out.print("\"right_method\": \"" + method[val[1]-1]+ "\"");
-	out.print("}");
+	else {
+
+	    String img_path1 = "uploads/" + uname + "/" + tname + "/" + method[val[0]-1] + ".jpg";
+	    String img_path2 = "uploads/" + uname + "/" + tname + "/" + method[val[1]-1] + ".jpg";
+	    
+	    out.print("{");
+	    out.print("\"left\": \"" + img_path1+ "\",");
+	    out.print("\"left_method\": \"" + method[val[0]-1]+ "\",");
+	    out.print("\"right\": \"" + img_path2+ "\",");
+	    out.print("\"right_method\": \"" + method[val[1]-1]+ "\"");
+	    out.print("}");
+	}
     }
 }
 %>
