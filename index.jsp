@@ -8,7 +8,7 @@
   <body>
 
     <h2>Create Homepage here</h2>
-
+    <a href="login.jsp"> LOGIN </a>
 
   </body>
 </html>

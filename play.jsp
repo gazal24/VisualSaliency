@@ -13,7 +13,13 @@ session.setAttribute("theStrategy", strategy);
     <link href="button.css" rel="stylesheet" type="text/css">
     <script>
     // Code to initialize the game with method[0] and method[1] image.
-      window.onload = loadXMLDoc(0);
+    //      window.onload = loadXMLDoc(0);
+    window.onload = initPlay();
+
+    function initPlay() {
+	fetch_original();
+        loadXMLDoc(0);
+    }
 
       function loadXMLDoc(a)
       {
@@ -50,18 +56,67 @@ session.setAttribute("theStrategy", strategy);
 	  }
       }
 
+    
+    function fetch_original() {
+	var xmldoc = new XMLHttpRequest();
+	if (window.XMLHttpRequest)
+	    {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	    }
+	else
+	    {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	xmldoc.open("GET", "multiQuery.jsp?random="+Math.random(), true);
+	xmldoc.send();
+	xmldoc.onreadystatechange = function() {
+	    if (xmldoc.readyState==4 && xmldoc.status==200) {
+		resptxt = xmldoc.responseText;
+		var responseJSON = eval('('+ resptxt +')');
+		document.getElementById("original").src = responseJSON.originalImg;
+		document.getElementById("original_div").style.display = "none";
+	    }
+	}
+    }
+
+    function toggle() {
+    		if(document.getElementById("original_div").style.display == "none") {
+		    document.getElementById("original_div").style.display = "inline";
+		    document.getElementById("showOriginal").innerHTML = "Hide Original";
+		}
+		else {
+		    document.getElementById("original_div").style.display = "none";
+		    document.getElementById("showOriginal").innerHTML = "Show Original";
+		}
+
+    }
+
     </script>
 
   </head>
   <body align="center">
-    <p onclick="loadXMLDoc(0)" align="center"> Restart </p>
+    <div align="right"> <p onclick="loadXMLDoc(0)" class="medium button black" align="right">Restart</p></div>
     <a href="result.jsp" id="result" align="center"> </a>
-    <p align="center"> 
-      <% if(strategy==0) out.println("<a class=\"super button pink\"> Knockout"); %>
-      <% if(strategy==1) out.println("<a class=\"super button green\"> Challenging"); %>
-      <% if(strategy==2) out.println("<a class=\"super button blue\"> Round-robin"); %>
-</a>
-    </p>
+    <div align="right"> 
+      <% if(strategy==0) out.println("<a class=\"super button pink\"> Knockout </a>"); %>
+      <% if(strategy==1) out.println("<a class=\"super button green\"> Challenging </a>"); %>
+      <% if(strategy==2) out.println("<a class=\"super button blue\"> Round-robin </a>"); %>
+    </div>
+    <div align="center">
+      <p id="showOriginal" onclick="toggle()" class="medium button black" align="center">Show Original</p>
+    </div>
+    <div id="original_div">
+      <table class="image_panel fixed">
+	  <th>
+	    Original
+	  </th>
+	
+	<tr><td>
+	    <img id="original" src="" class="mainimage"></img>
+      </td></tr></table>
+    </div>
+    <br>
+    <div>
     <div align="center">
       <table align="center" class="image_panel fixed" style="border-collapse: collapse">
 	<col class="players"/>
