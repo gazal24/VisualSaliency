@@ -37,6 +37,10 @@
        </td>
       </tr>
       </table>
+      <div align="right">
+	<a class="large button black" href="creategame.jsp"> Create Game </a>  
+      </div>
+
     </div>
 <br/>
 
@@ -63,6 +67,7 @@
       </table>
     </div>
     <br / > <br/>	<br / > <br/>
+
 
 <div>
   <table align="center" border="0"> 
