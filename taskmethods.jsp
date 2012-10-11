@@ -42,7 +42,7 @@
 				      %>
 	     <tr>
 	       <td><a class="regular">
-		 <%  out.println(i+1+" - "); %> </a>
+		   <%  out.println(i+1+" - "); %> </a>
 		 <a class="field"><input type="text" name="m_name" size="20" placeholder="method name">
 	       </td>
 	     </tr>
@@ -59,8 +59,8 @@
 		 </a>
 	       </td>
 	     </tr>
- 	   </table>
-	</form>
+ 	    </table>
+	    </form>
   </body>
 </html>
 

@@ -2,7 +2,6 @@
 <%@ page import="java.lang.*" %>
 <%@ include file="dbconnect.jsp" %>
 
-
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
@@ -26,6 +25,11 @@
       <form action="saveimage.jsp" method="post" enctype="multipart/form-data">
 	<tr><td colspan =2 align = center> Select files to upload 
 	    <br /><br /></td></tr>
+	<tr class="field">
+	  <td> Dataset Name </td>
+	   <td colspan='2'> <input type="text" name="set_name" value="" placeholder="Dataset Name"/></td>
+
+</tr>
 	<tr>
 	  <td>Original Image </td>
 	  <td></td>
@@ -33,10 +37,10 @@
 	</tr>
 	<%
 	   String m_name;
-	   Integer method_count =  (Integer) session.getAttribute( "theCount" );
-	   for(i=0; i<method_count; i++) {
-		rs.next();
-		m_name = rs.getString("name");
+           i=0;
+           while(rs.next()) { 
+	       i++;
+	       m_name = rs.getString("name");
         %>
 	 <tr>
 	   <td> <% out.print(m_name); %> </td>

@@ -10,10 +10,20 @@
    int task_id = (Integer)session.getAttribute( "theTask_ID" );
    String uname = (String) session.getAttribute("theUname");
    String tname = (String) session.getAttribute("theTask");
+//   String sname = (String) request.getParameter("set_name");
+   String sname = "default";
+   out.println(sname);
 %>
 
 <%      
-String query = "SELECT * from method WHERE task_id=" + task_id;
+String query = "INSERT INTO `set` (`task_id`, `name`) VALUES ('"+ task_id+"','"+ sname+"')";
+stmt.executeUpdate(query);
+query = "SELECT max(`id`) as set_id FROM `set` WHERE task_id='" + task_id + "'";
+rs = stmt.executeQuery(query);
+rs.next();
+String set_id = rs.getString("set_id");
+
+query = "SELECT * from method WHERE task_id=" + task_id;
 rs = stmt.executeQuery(query);
 String mname;
 %>
@@ -23,7 +33,7 @@ String mname;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = "/var/lib/tomcat6/webapps/tournament/uploads/" +uname + "/" + tname + "/";
+   String filePath = "/var/lib/tomcat6/webapps/tournament/uploads/" + uname + "/" + tname + "/" + set_id + "/";
    //String filePath = context.getInitParameter("file-upload");
 
    File dir = new File(filePath);
@@ -92,8 +102,8 @@ String mname;
          }
          out.println("</body>");
          out.println("</html>");
-	 session.setAttribute("posMsg", "Congratulation. Task created successfully.");	 
-	 response.sendRedirect("task.jsp");
+	 session.setAttribute("posMsg", "Congratulation. Image set uploaded successfully.");	 
+	 response.sendRedirect("method.jsp?taskid="+task_id);
       }catch(Exception ex) {
          out.println(ex);
       }

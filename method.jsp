@@ -17,55 +17,82 @@
       Hello! <%= session.getAttribute( "theUname" ) %>
       <%@ include file = "errormsg.jsp" %>
     </div>
+      <div align="right">
+	<a class="large button black" href="creategame.jsp"> Create Game </a>
+
+      <div align="left">
+	<a class="large button black" href="upload.jsp">New Image Set </a>
+      </div>
+
       <%
 	 
 	 rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
 	 rs.next();
 	 String tname = rs.getString("name");
+         session.setAttribute("theTask", tname);
+
 	 int counter = 0;
 	 
-         rs = stmt.executeQuery("SELECT * from method WHERE task_id=" + task_id );
+         rs = stmt.executeQuery("SELECT * from `method` WHERE task_id=" + task_id );
+	 //TODO: mname array: figure out its size properly while declaring the variable.
+         String mname[] = new String[100];
+         int mcount=0;
+         while(rs.next()) {
+	     mname[mcount] = rs.getString("name");
+	     mcount++;
+
+	 }
+      
+         rs = stmt.executeQuery("SELECT * from `set` WHERE task_id=" + task_id );
 	 String img_path;
-	 img_path = "uploads/" + uname + "/" + tname + "/" + "original" + ".jpg";
+
       %>
     <div>
       <table align="center" width="200">
       <tr>
-	<td class="buttons" width="500" align="center" colspan="3"><br>
-	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> width= 150px /> <br/>
-	  <a class="regular"> <% out.print("Original Image"); %> </a>
-       </td>
       </tr>
       </table>
-      <div align="right">
-	<a class="large button black" href="creategame.jsp"> Create Game </a>  
-      </div>
 
     </div>
 <br/>
 
+      <%
+	      int i;
+         while(rs.next()) {
+         String sname = rs.getString("id");
+	 img_path = "uploads/" + uname + "/" + tname + "/" + sname + "/" + "original" + ".jpg";
+
+	 %>
+      <p>
     <div class="img_thumb">
       <table align="center" width="500">
       <tr>
-      <%
-	 out.println("<tr>");
-         while(rs.next()) {
-         String method = rs.getString("name"); 
-	 img_path = "uploads/" + uname + "/" + tname + "/" + method + ".jpg";
-	 if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
+	<td class="buttons" align="center"><br>
+	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> height= 150px /> <br/>
+	  <a class="regular"> <% out.print("Original Image"); %> </a>
+       </td>
+	<%
+	 for(i=0; i<mcount; i++) {
+	     img_path = "uploads/" + uname + "/" + tname + "/" + sname + "/" + mname[i] + ".jpg";
+//	 if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
       %> 
        <td class="buttons" width="500" align="center"><br>
-	 <img src= <% out.print(img_path);%> alt= <% out.print(method);%> width= 150px /> <br/>
-	 <a class="regular"> <% out.print(method); %> </a>
+	 <img src= <% out.print(img_path);%> alt= <% out.print(mname[i]);%> height= 150px /> <br/>
+	 <a class="regular"> <% out.print(mname[i]); %> </a>
       </td>
       <%
-	 counter++;
+							   //	 counter++;
 	 }
-      con.close();
-      %>
+	 %>
+	     </tr><tr>
       </tr>
       </table>
     </div>
+
+<%
+	 }
+      con.close();
+      %>
     <br / > <br/>	<br / > <br/>
 
 
