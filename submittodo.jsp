@@ -9,7 +9,7 @@
 
     <jsp:scriptlet><![CDATA[
 
-String query =  "INSERT INTO `todo` (`task`) VALUES ('" + task + "')" ;
+String query =  "INSERT INTO `todo` (`task`, `status`) VALUES ('" + task + "','"+ 0 +"')" ;
 stmt.executeUpdate(query);
 con.close();
 

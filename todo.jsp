@@ -16,14 +16,27 @@
 
 <jsp:scriptlet><![CDATA[
 
-rs = stmt.executeQuery("SELECT * from todo");
+rs = stmt.executeQuery("SELECT * from todo ORDER BY `id`");
 	  
 
 while(rs.next())
 {
 String id = rs.getString("id");
 String task = rs.getString("task");
-out.println("<tr class=buttons><td><a class=\"regular\">"+ id+"</a></td><td> "+ task +"</td>");
+String status = rs.getString("status");
+String img = "";
+
+out.println("<tr class=buttons><td><a class=\"regular\">"+ id+"</a></td><td> ");
+
+if(status.equals("1")) {
+img = "images/untick.png";
+out.println("<del>");
+} else img="images/tick.png";
+
+out.println(task);
+out.println("</td>");
+
+out.print("<td class='buttons'> <a href='striketodo.jsp?id="+ id +"&status="+status+"' class='negative'> <img src='" + img + "' alt=''/></a></td>");
 out.print("<td class=\"buttons\"> <a href=\"deletetodo.jsp?id="+ id +"\" class=\"negative\"> <img src=\"images/cross.png\" alt=\"\"/></a></td></tr>");
 
 }
