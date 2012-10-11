@@ -1,5 +1,15 @@
+<%@ page import="Stra.Strategy" %>
+<%
+   Strategy sa = new Strategy(2,3);
+   out.println(sa.game(3));
+%>
 <html>
   <head>
+    <%
+       session.setAttribute("theUname", "" );
+       session.setAttribute("thePasswd", "");
+       
+       %>
     <link href="style.css" rel="stylesheet" type="text/css">
     <script>
       function formReset() {
@@ -27,6 +37,7 @@
 	  <td align="left">
 	    User Login :
 	    <form method="post" action="checklogin.jsp" id="login_form">
+	      <input type="hidden" name="login_type" value="1" />
 	      <div class="field"> <input type="text" name="uname" size="20" placeholder="Username"> </div>
 	      <div class="field"> <input type="password" name="passwd" size="50" placeholder="Password"> </div>
 	      <br>
@@ -45,9 +56,9 @@
 	  <td>
 	    Player Login :
 	    <form method="post" action="checklogin.jsp">
-	      <div class="field"> <input type="text" name="uname" size="20" placeholder="Player Name"> </div>
-	      <br />
-	      <br />
+	      <input type="hidden" name="login_type" value="2" />
+	      <div class="field"> <input type="text" name="email_id" size="20" placeholder="Player ID"> </div>
+	      <div class="field"> <input type="text" name="code" size="20" placeholder="CODE"> </div>
 	      <br />
 	      <div class="buttons"> 
 		<button type="submit" class="positive" name="save"> 
