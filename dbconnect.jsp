@@ -4,7 +4,7 @@
 Statement stmt;
 Connection con;
 String url = "jdbc:mysql://localhost:3306/proj1";
-ResultSet rs;   
+ResultSet rs,rs1;   
 </jsp:declaration>
 
 <%
