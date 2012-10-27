@@ -1,6 +1,10 @@
 .
 |-- classes
+|   |-- Method.java~
 |   |-- Stra
+|   |   |-- Node.class
+|   |   |-- Node.java
+|   |   |-- Node.java~
 |   |   |-- Strategy.class
 |   |   |-- Strategy.java
 |   |   `-- Strategy.java~
@@ -16,8 +20,7 @@
 |   |-- commons-io-2.4-tests.jar
 |   |-- commons-io-2.4-test-sources.jar
 |   `-- mysql-connector-java-5.1.21-bin.jar
-|-- web-inf_tree.txt
 |-- web.xml
 `-- web.xml~
 
-4 directories, 16 files
+4 directories, 19 files
