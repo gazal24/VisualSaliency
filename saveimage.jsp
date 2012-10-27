@@ -22,6 +22,8 @@ query = "SELECT max(`id`) as set_id FROM `set` WHERE task_id='" + task_id + "'";
 rs = stmt.executeQuery(query);
 rs.next();
 String set_id = rs.getString("set_id");
+query = "UPDATE `set` SET `name` = '"+ set_id +"' WHERE  `set`.`id` ="+set_id+"";
+stmt.executeUpdate(query);
 
 query = "SELECT * from method WHERE task_id=" + task_id;
 rs = stmt.executeQuery(query);
