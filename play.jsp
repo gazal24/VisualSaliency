@@ -67,7 +67,7 @@ session.setAttribute("theStrategy", strategy);
 	    {// code for IE6, IE5
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	    }
-	xmldoc.open("GET", "multiQuery.jsp?random="+Math.random(), true);
+	xmldoc.open("GET", "multiQuery.jsp?type=returnOriginal&random="+Math.random(), true);
 	xmldoc.send();
 	xmldoc.onreadystatechange = function() {
 	    if (xmldoc.readyState==4 && xmldoc.status==200) {
@@ -96,7 +96,7 @@ session.setAttribute("theStrategy", strategy);
   </head>
   <body align="center">
     <div align="right"> <p onclick="loadXMLDoc(0)" class="medium button black" align="right">Restart</p></div>
-    <a href="result.jsp" id="result" align="center"> </a>
+    <a href="multiQuery.jsp?type=saveScore" id="result" align="center"> </a>
     <div align="right"> 
       <% if(strategy==0) out.println("<a class=\"super button pink\"> Knockout </a>"); %>
       <% if(strategy==1) out.println("<a class=\"super button green\"> Challenging </a>"); %>

@@ -184,10 +184,13 @@ else {
     if(choice==1) adjGraph[a][b]++;
     else if(choice==2) adjGraph[b][a]++;
 
+    if(strategy == 0)
+	obj = knockout(choice, a, b, currSet, setStatus, setCount, sheet, methodCount, score);
     if(strategy == 1)
 	obj = challenging(choice, a, b, currSet, setStatus, setCount, sheet, methodCount, score);
     if(strategy == 2)
 	obj = roundrobin(choice, a, b, currSet, setStatus, setCount, sheet, methodCount, score);
+
     
     val = (int [])obj[0];
     

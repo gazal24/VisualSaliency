@@ -11,18 +11,37 @@
      Integer task_id = new Integer(1);
      task_id = Integer.parseInt(request.getParameter("taskid"));
      String uname = (String) session.getAttribute("theUname");
+     int login_type = (Integer) session.getAttribute("theLoginType");
      session.setAttribute("theTask_ID", task_id);
   %>
     <div align="center" width="800">
       Hello! <%= session.getAttribute( "theUname" ) %>
       <%@ include file = "errormsg.jsp" %>
     </div>
+
+    <% if(login_type == 1) {  %>
       <div align="right">
 	<a class="large button black" href="creategame.jsp"> Create Game </a>
+      </div>
+    <% } %>
 
+    <% if(login_type == 1) {  %>
       <div align="left">
 	<a class="large button black" href="upload.jsp">New Image Set </a>
       </div>
+    <% } %>
+
+    <% if(login_type == 1) {  %>
+      <div align="right">
+	<a class="large button black" href="result.jsp">View Overall Scoring </a>
+      </div>
+    <% } %>
+
+    <% if(login_type == 2) {  %>
+      <div align="right">
+	<a class="large button black" href="result.jsp">View Volunteer Scoring </a>
+      </div>
+    <% } %>
 
       <%
 	 

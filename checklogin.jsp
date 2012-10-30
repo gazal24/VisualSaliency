@@ -12,7 +12,7 @@ int login_flag = 0;
 String task_id="0";
 String uname = "";
 
-if(login_type == 1) {
+if(login_type == 1) { //User Login
     out.println("hey");
     uname = request.getParameter( "uname" );
     String passwd = request.getParameter( "passwd" );
@@ -25,6 +25,7 @@ if(login_type == 1) {
 	    if(uname_db.equals(uname) && passwd_db.equals(passwd))
 		{
 		    login_flag = 1;
+		    session.setAttribute("theLoginType", 1);
 		    session.setAttribute("theUname", uname );
 		    session.setAttribute("thePasswd", passwd);
 		    break;
@@ -32,18 +33,21 @@ if(login_type == 1) {
 	}
 }
 
-else if(login_type == 2) {
+else if(login_type == 2) { // Player Login
     String email_id = request.getParameter( "email_id" );
     String code = request.getParameter( "code" );
     rs = stmt.executeQuery("SELECT * from `play` WHERE `player_email_id` = '" + email_id + "' AND `code` = '"+ code +"'" );
 
     while(rs.next()) {
+	String play_id = rs.getString("id");
 	String code_db = rs.getString("code");
 	String game_id = rs.getString("game_id");
-	
+
 	if(code_db.equals(code)) {
 	    login_flag = 1;
-	    session.setAttribute("theGameID", rs.getString("game_id") );
+	    session.setAttribute("theLoginType", 2);
+	    session.setAttribute("thePlayID", play_id);
+	    session.setAttribute("theGameID", game_id);
 	    rs = stmt.executeQuery("SELECT `task_id` FROM `game` WHERE `id` = '"+ game_id +"'");
 	    rs.next();
 	    task_id = rs.getString("task_id");
