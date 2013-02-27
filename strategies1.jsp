@@ -91,7 +91,7 @@ Object[] knockout(int choice, int left, int right, int currSet, int[] setStatus,
 	}while((sheet[currSet][left].loss!=0) || (sheet[currSet][left].matches!=minMatches)); // No need to check Player.win because winner will always have matches =non_zero.
     
     
-	// PICK SOME RANDOM PLAYER WITH MATCHES =0 AND WIN =0
+	// PICK SOME RANDOM PLAYER WITH MATCHES =minMatches AND loss =0
 	do{
 	    right = (int)(Math.random()*2377) % methodCount;
 	}while((sheet[currSet][right].loss!=0) || (sheet[currSet][right].matches!=minMatches) || (left==right)); // No need to check Player.win because winner will always have matches =non_zero.
@@ -183,33 +183,6 @@ Object[] challenging(int choice, int left, int right, int currSet, int[] setStat
 
     int []arr = {left, right, currSet};
     return new Object[]{arr, sheet, setStatus};
-
-    // int a = left;
-    // int b = right;
-
-    // int c;
-    // if(a>b) c = a;
-    // else c = b;
-    // ++c;
-    // if(c > methodCount)
-    // 	{
-    // 	    a = -1;
-    // 	}
-    // else {
-    // 	if(choice == 1) //left image
-    // 	    {
-    // 		score[a] += score[b] + 1;
-    // 		b = c;
-    // 	    }
-    // 	else if (choice == 2) //right image
-    // 	    {
-    // 		score[b] += score[a] + 1;
-    // 		a = c;
-    // 	    }
-    // }
-    // int [] arr = {a,b};
-    // //	  return arr;  
-    // return new Object[]{arr, score, sheet};
 }
 
 Object[] roundrobin(int choice, int left, int right, int currSet, int[] setStatus, int setCount, Node[][] sheet, int methodCount, int[] score){

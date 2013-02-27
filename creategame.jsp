@@ -33,11 +33,12 @@
     <br/>
 
     <div align="center">
-      <%
+       <%
       	 rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
-	 rs.next();
-	 String tname = rs.getString("name");
-	 out.println("<b>Task Name : </b>" + tname);
+         if(rs.next()) {
+	     String tname = rs.getString("name");
+	     out.println("<b>Task Name : </b>" + tname);
+         }
       %>
       <br>
       <%

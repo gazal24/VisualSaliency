@@ -5,22 +5,17 @@
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="button.css" rel="stylesheet" type="text/css">
+    <script src="helper_script.js"></script>
   </head>
   <body>
 
-    <!-- <div class="fixwidth" style="display:block" id="flash-notice" onclick="$(this).hide();"> -->
-    <!--   <table align="center"><tr><td> -->
-    <!-- 	    <div class="flash" align="center" width="800"> -->
-    <!-- 	      <div class="success"> -->
-    <!-- 		Successfully updated your profile. <span class="gray-text" style="font-size:10px;">Click to hide</span> -->
-    <!-- 	      </div> -->
-    <!-- 	    </div> -->
-    <!--   </td></tr></table> -->
-    <!-- </div> -->
-
     <div align="center" width="800">
-      Hello! <%= session.getAttribute( "theUname" ) %><br />
+      Hello! <%= session.getAttribute("theName") %> [<%= session.getAttribute("theUname") %>] <br />
       <%@ include file = "errormsg.jsp" %>
+      <% String referrer = request.getHeader("referer"); 
+        out.println("<p> use this sometime : " + referrer + "</p>");
+       %>
+      <a float="right" class="large button black" href="settings.jsp">Account Setting</a>
     </div>
     <div class="img_thumb">
       <table align="center" width="600">
@@ -38,8 +33,8 @@
   	   if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
       %> 
 	<td class="buttons" width="500" align="center"><br>
-	 <img src= <% out.print(img_path);%> alt= <% out.print(tname);%> height=100px width= 150px /> <br/>
-	  <a class="regular" href=<% out.print("method.jsp?taskid="+task_id); %> > <% out.print(tname); %> </td>
+	 <!-- <img src= <% out.print(img_path);%> alt= <% out.print(tname);%> height=100px width= 150px /> <br/> -->
+	  <a class="regular" href=<% out.print("method.jsp?taskid="+task_id); %> ><h1> <% out.print(tname); %> </td>
         <%
 	 counter++;
          }

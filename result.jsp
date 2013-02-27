@@ -20,10 +20,6 @@
    String query;
    String adjGraph_string;
    XStream xstream = new XStream();
-
-
-
-
 %>
 
 <%!
@@ -46,7 +42,7 @@
     <%
       // User login
       if(loginType == 1) {
-	  query = "SELECT * FROM `game`,`play` WHERE `game`.`task_id` = " + task_id + " AND `play`.`game_id` = `game`.`id`";
+	  query = "SELECT `score` FROM `game`,`play` WHERE `game`.`task_id` = " + task_id + " AND `play`.`game_id` = `game`.`id`";
 	  rs = stmt.executeQuery(query);
 	  while(rs.next()){
 	      adjGraph_string = rs.getString("score");
@@ -61,7 +57,7 @@
 
       // Player Login
       else if(loginType == 2) {
-	  query =  "SELECT * FROM `play` WHERE `id`=" + play_id;       	  
+	  query =  "SELECT `score` FROM `play` WHERE `id`=" + play_id;
 	  rs = stmt.executeQuery(query);
 	  rs.next();
 	  adjGraph_string = rs.getString("score");
@@ -108,7 +104,7 @@
   </head>
   <body align="center">
     <div>
-       <% if(loginType == 2) out.println(play_id); %>
+       <% if(loginType == 2) out.println(); %>
     </div>
     <table class="image_panel result">
       <tr>
@@ -151,26 +147,28 @@ for(i=0; i<methodCount; i++)
 <br />
 
     <h4><p align="center" width="800"> Row beats Column ? 1 : 0</p>
-    <table class="image_panel result">
-    <tr>
-    <td>  </td>
-<%
+
+     <!-- <table class="image_panel result"> -->
+     <!-- <tr> -->
+     <!-- <td>  </td> -->
+ <%
    
-for(i=0; i<methodCount; i++)
-    out.println("<td>"+method[i]+"</td>");
-out.println("</tr>");
+// for(i=0; i<methodCount; i++)
+//     out.println("<td>"+method[i]+"</td>");
+// out.println("</tr>");
 
-for(i=0; i<methodCount; i++) {
-    out.println("<tr>");
-    out.println("<td>"+method[i]+"</td>");
-    for(j=0; j<methodCount; j++) {
-	out.println("<td>"+adjGraph[i][j]+"</td>");
-    }
-    out.println("</tr>");
-}
+// for(i=0; i<methodCount; i++) {
+//     out.println("<tr>");
+//     out.println("<td>"+method[i]+"</td>");
+//     for(j=0; j<methodCount; j++) {
+// 	out.println("<td>"+adjGraph[i][j]+"</td>");
+//     }
+//     out.println("</tr>");
+// }
 
-%>
-</table>
+// %>
+ </table>
+
 
     <table class="image_panel result">
     <tr>
@@ -185,7 +183,7 @@ for(i=0; i<methodCount; i++) {
     out.println("<tr>");
     out.println("<td>"+method[i]+"</td>");
     for(j=0; j<methodCount; j++) {
-	out.println("<td>"+p[i][j]+"</td>");
+	out.println("<td>"+adjGraph[i][j]+"</td>");
     }
     out.println("</tr>");
 }
