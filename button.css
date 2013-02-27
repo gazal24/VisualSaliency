@@ -81,6 +81,9 @@
     width: expression(this.width > 500 ? "400px" : true);
 }
 
+pane{
+    width: expression(this.width > 50 ? "20px" : true);
+}
 
 table.fixed {
     table-layout:fixed;
@@ -93,8 +96,8 @@ col.players {
 
 table.fixed td {
     overflow: hidden; 
-    width:500px;
-    height:500px;
+    width: expression(this.width > 500 ? "400px" : true);
+    height: expression(this.height > 500 ? "400px" : true);
     padding:10px;
 }
 
@@ -125,6 +128,7 @@ div.img_thumb {
     text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
     border-bottom: 1px solid rgba(0,0,0,0.25);
     position: relative;
-
     width:100%;
+    overflow: auto;
 }
+
