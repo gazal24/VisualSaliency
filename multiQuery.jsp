@@ -3,6 +3,7 @@
 <%@ page import="com.thoughtworks.xstream.XStream"%>
 <%
 String type = request.getParameter("type");
+
 if(type.equals("returnOriginal")) { 
     String uname = (String) session.getAttribute("theUname");
     String tname = (String) session.getAttribute("theTaskName");
@@ -21,5 +22,39 @@ if(type.equals("saveScore")) {
     String query =  "UPDATE `play` SET `score`= '"+adjGraph_string+"' WHERE `id`="+play_id;       
     stmt.executeUpdate(query);
     response.sendRedirect("result.jsp");
+}
+
+if(type.equals("updatePasswd")) {
+    try {
+	String uname = (String) session.getAttribute("theUname");
+	String passwd = request.getParameter( "new_pass" );
+	String cnf_passwd = request.getParameter( "confirm_pass" );
+	if(!cnf_passwd.equals(passwd) || passwd.equals("")) {
+	    session.setAttribute("errMsg", "Passwords do not match. Try again!");
+	} else {
+	    String query = "UPDATE  `proj1`.`user` SET  `password` =  '"+passwd+"' WHERE  `user`.`uname` =  '"+uname+"'";
+	    stmt.executeUpdate(query);
+	    session.setAttribute("posMsg", "Password changed successfuly!");
+	}
+    }
+    catch(Exception e){
+	session.setAttribute("errMsg", "Error changing password!");
+    }
+    response.sendRedirect("settings.jsp");
+}
+
+if(type.equals("updateName")) {
+    try {
+	String uname = (String) session.getAttribute("theUname");
+	String name = request.getParameter("name");
+	String query = "UPDATE  `proj1`.`user` SET  `name` =  '"+name+"' WHERE  `user`.`uname` =  '"+uname+"'";
+	stmt.executeUpdate(query);
+	session.setAttribute("theName", name);
+	session.setAttribute("posMsg", "Name updated successfuly!");
+    }
+    catch(Exception e){
+	session.setAttribute("errMsg", "Error in updating Name!");
+    }
+    response.sendRedirect("settings.jsp");
 }
 %>
