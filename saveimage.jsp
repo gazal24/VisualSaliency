@@ -9,7 +9,7 @@
 <% 
    int task_id = (Integer)session.getAttribute( "theTask_ID" );
    String uname = (String) session.getAttribute("theUname");
-   String tname = (String) session.getAttribute("theTask");
+   String tname = (String) session.getAttribute("theTaskName");
 //   String sname = (String) request.getParameter("set_name");
    String sname = "default";
    out.println(sname);

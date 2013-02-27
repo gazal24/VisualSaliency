@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page errorPage="error.jsp" %>
 <%@ include file="dbconnect.jsp"%>
 <html>
   <head>
@@ -15,7 +14,7 @@
      session.setAttribute("theTask_ID", task_id);
   %>
     <div align="center" width="800">
-      Hello! <%= session.getAttribute( "theUname" ) %>
+      Hello! <%= session.getAttribute("theName") %> [<%= session.getAttribute("theUname") %>] <br />
       <%@ include file = "errormsg.jsp" %>
     </div>
 
@@ -48,7 +47,7 @@
 	 rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
 	 rs.next();
 	 String tname = rs.getString("name");
-         session.setAttribute("theTask", tname);
+         session.setAttribute("theTaskName", tname);
 
 	 int counter = 0;
 	 
@@ -61,7 +60,7 @@
 	     mcount++;
 
 	 }
-      
+         session.setAttribute("theMethodCount", mcount);
          rs = stmt.executeQuery("SELECT * from `set` WHERE task_id=" + task_id );
 	 String img_path;
 

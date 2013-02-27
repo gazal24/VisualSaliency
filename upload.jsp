@@ -12,7 +12,7 @@
 %>
 
   <jsp:scriptlet><![CDATA[
-       String tname = (String) session.getAttribute("theTask");
+       String tname = (String) session.getAttribute("theTaskName");
        String query = "SELECT * FROM `method` WHERE `task_id` = " + task_id;
        rs = stmt.executeQuery(query);
        int i=0;

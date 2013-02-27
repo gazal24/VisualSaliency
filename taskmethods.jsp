@@ -6,7 +6,7 @@
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
     <%
-       String task_name = (String) session.getAttribute("theTask");
+       String task_name = (String) session.getAttribute("theTaskName");
        Integer method_count =  (Integer) session.getAttribute( "theCount" );
     %>
 
