@@ -65,14 +65,6 @@
 	 String img_path;
 
       %>
-    <div>
-      <table align="center" width="200">
-      <tr>
-      </tr>
-      </table>
-
-    </div>
-<br/>
 
       <%
 	      int i;
@@ -149,10 +141,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
