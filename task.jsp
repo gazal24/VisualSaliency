@@ -21,14 +21,18 @@
       <table align="center" width="600">
 	<% String uname = (String) session.getAttribute("theUname"); %>
 
-      <%
-	 rs = stmt.executeQuery("SELECT * from task WHERE uname = '" + uname +"'" );
+       <%
+         paramList.clear();
+         paramList.add(uname);
+         // query = "SELECT * from task WHERE uname = '" + uname +"'";
+         crs = execQuery(30, paramList);
+
 	 int counter = 0;
 	 String img_path;
  	 out.println("<tr>");
-         while(rs.next()) {
-           String tname = rs.getString("name"); 
-           String task_id = rs.getString("id");
+         while(crs.next()) {
+           String tname = crs.getString("name"); 
+           String task_id = crs.getString("id");
 	   img_path = "uploads/" + uname + "/" + tname + "/" + "original" + ".jpg";
   	   if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
       %> 

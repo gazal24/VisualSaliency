@@ -7,8 +7,7 @@
   </head>
   <body>
   <%
-     Integer task_id = new Integer(1);
-     task_id = Integer.parseInt(request.getParameter("taskid"));
+     String task_id = request.getParameter("taskid");
      String uname = (String) session.getAttribute("theUname");
      int login_type = (Integer) session.getAttribute("theLoginType");
      session.setAttribute("theTask_ID", task_id);
@@ -43,33 +42,41 @@
     <% } %>
 
       <%
-	 
-	 rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
-	 rs.next();
-	 String tname = rs.getString("name");
+         paramList.clear();
+         paramList.add(task_id);
+         crs = execQuery(40, paramList);
+         // rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
+
+         crs.next();
+	 String tname = crs.getString("name");
          session.setAttribute("theTaskName", tname);
 
 	 int counter = 0;
 	 
-         rs = stmt.executeQuery("SELECT * from `method` WHERE task_id=" + task_id );
+         paramList.clear();
+         paramList.add(task_id);
+         crs = execQuery(41, paramList);
+         // rs = stmt.executeQuery("SELECT * from `method` WHERE task_id=" + task_id );
+
 	 //TODO: mname array: figure out its size properly while declaring the variable.
          String mname[] = new String[100];
          int mcount=0;
-         while(rs.next()) {
-	     mname[mcount] = rs.getString("name");
+         while(crs.next()) {
+	     mname[mcount] = crs.getString("name");
 	     mcount++;
 
 	 }
          session.setAttribute("theMethodCount", mcount);
-         rs = stmt.executeQuery("SELECT * from `set` WHERE task_id=" + task_id );
+
+         paramList.clear();
+         paramList.add(task_id);
+         crs = execQuery(42, paramList);
+         // rs = stmt.executeQuery("SELECT * from `set` WHERE task_id=" + task_id );
 	 String img_path;
 
-      %>
-
-      <%
-	      int i;
-         while(rs.next()) {
-         String sname = rs.getString("id");
+         int i;
+         while(crs.next()) {
+         String sname = crs.getString("id");
 	 img_path = "uploads/" + uname + "/" + tname + "/" + sname + "/" + "original" + ".jpg";
 
 	 %>
