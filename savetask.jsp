@@ -5,23 +5,31 @@
 
 <%		
 String tname = request.getParameter( "name" );
-Integer method_count = new Integer(1);
-method_count = Integer.parseInt(request.getParameter( "count" ));
+String mcount = request.getParameter( "count" );
 String uname = (String) session.getAttribute("theUname");
 
 session.setAttribute("theTaskName", tname );
-session.setAttribute("theCount", method_count);
-out.println("Hello " + method_count);
+session.setAttribute("theMethodCount", mcount);
+out.println("Hello " + mcount);
 
-String query =  "INSERT INTO `task` (`uname`, `name`, `method_count`) VALUES ('" + uname + "', '" + tname + "', '" + method_count + "')" ;
-int resultq = stmt.executeUpdate(query);
+paramList.clear();
+paramList.add(uname);
+paramList.add(tname);
+paramList.add(mcount);
 
-query = "SELECT max(id) as task_id FROM `task` WHERE `name` = '" + tname + "'";
-rs = stmt.executeQuery(query);
+int resultq = execUpdate(90, paramList);
+
+// String query =  "INSERT INTO `task` (`uname`, `name`, `method_count`) VALUES ('" + uname + "', '" + tname + "', '" + mcount + "')" ;
+// int resultq = stmt.executeUpdate(query);
+
+
+paramList.clear();
+paramList.add(tname);
+// String query = "SELECT max(id) as task_id FROM `task` WHERE `name` = '" + tname + "'";
+rs = execQuery(91, paramList);
 resultq = 0;
 if(rs.next()) {
-    Integer task_id = new Integer(1);
-    task_id = Integer.parseInt(rs.getString("task_id"));
+    String task_id = rs.getString("task_id");
     session.setAttribute("theTask_ID", task_id);
     resultq = 1;
 }

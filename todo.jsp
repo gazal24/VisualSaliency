@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page errorPage="error.jsp" %>
 <%@ include file="dbconnect.jsp" %>
 
 <html>
@@ -14,11 +13,14 @@
     <br>
     <table align = center  style="table-layout: fixed;">
 
-<jsp:scriptlet><![CDATA[
-
-rs = stmt.executeQuery("SELECT * from todo ORDER BY `id`");
+<%
+      
+paramList.clear();
+rs = execQuery(100, paramList);
+			
+// rs = stmt.executeQuery("SELECT * from todo ORDER BY `id`");
 	  
-
+if(rs.next()) {
 while(rs.next())
 {
 String id = rs.getString("id");
@@ -40,9 +42,10 @@ out.print("<td class='buttons'> <a href='striketodo.jsp?id="+ id +"&status="+sta
 out.print("<td class=\"buttons\"> <a href=\"deletetodo.jsp?id="+ id +"\" class=\"negative\"> <img src=\"images/cross.png\" alt=\"\"/></a></td></tr>");
 
 }
+}
 con.close();
+%>
 
-]]></jsp:scriptlet>
 <tr><td colspan = 3>
     <form method="post" action="submittodo.jsp">
       <div class="field"> <input type="text" name="todo" size="20" placeholder="TODO">

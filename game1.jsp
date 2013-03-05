@@ -4,19 +4,19 @@
 <%@ page import="Stra.Node" %>
 
 <% 
-      int choice = Integer.parseInt(request.getParameter("choice"));
+int choice = Integer.parseInt(request.getParameter("choice"));
 
 if(choice == 0) {
 
-    int task_id = (Integer)session.getAttribute( "theTask_ID" );
+    String task_id = (String) session.getAttribute( "theTask_ID" );
     String uname = (String) session.getAttribute("theUname");
-    rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
-    rs.next();
-    String tname = rs.getString("name");
-    session.setAttribute("theTaskName", tname);
-
+    String tname = (String) session.getAttribute("theTaskName");
+    
     /// METHOD ///
-    rs = stmt.executeQuery("SELECT * from `method` WHERE task_id=" + task_id );
+    paramList.clear();
+    paramList.add(task_id);
+    rs = execQuery(50, paramList);
+    // rs = stmt.executeQuery("SELECT * from `method` WHERE task_id=" + task_id);
 
     int i=0;
 
@@ -38,7 +38,10 @@ if(choice == 0) {
 
 
     /// SET ///
-    rs = stmt.executeQuery("SELECT * from `set` WHERE task_id=" + task_id );
+    paramList.clear();
+    paramList.add(task_id);
+    rs = execQuery(51, paramList);
+    //rs = stmt.executeQuery("SELECT * from `set` WHERE task_id=" + task_id );
     i = 0;
     rs.last();
     size = rs.getRow();

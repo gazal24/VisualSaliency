@@ -9,13 +9,13 @@
    int [][]adjGraph_tmp;
    //   int []score = (int[])session.getAttribute("theScore");
    int []score = new int[5];
-   int[] currentRound = (int[])session.getAttribute("theCurrentRound"); 
+   // int[] currentRound = (int[])session.getAttribute("theCurrentRound"); 
    int methodCount =  (Integer)session.getAttribute("theMethodCount");
    String[] method =(String[]) session.getAttribute("theMethodArray");
    String[] method_mutableOrder = new String[5];
    String play_id =(String) session.getAttribute("thePlayID");
    int loginType = (Integer) session.getAttribute("theLoginType");
-   int task_id = (Integer)session.getAttribute("theTask_ID");
+   String task_id = (String)session.getAttribute("theTask_ID");
    int i,j,k;
    String query;
    String adjGraph_string;
@@ -42,8 +42,10 @@
     <%
       // User login
       if(loginType == 1) {
-	  query = "SELECT `score` FROM `game`,`play` WHERE `game`.`task_id` = " + task_id + " AND `play`.`game_id` = `game`.`id`";
-	  rs = stmt.executeQuery(query);
+	  paramList.clear();
+	  paramList.add(task_id);
+	  rs = execQuery(60, paramList);
+	  // query = "SELECT `score` FROM `game`,`play` WHERE `game`.`task_id` = " + task_id + " AND `play`.`game_id` = `game`.`id`";
 	  while(rs.next()){
 	      adjGraph_string = rs.getString("score");
 	      if(adjGraph_string != null) {
@@ -57,8 +59,11 @@
 
       // Player Login
       else if(loginType == 2) {
-	  query =  "SELECT `score` FROM `play` WHERE `id`=" + play_id;
-	  rs = stmt.executeQuery(query);
+	  paramList.clear();
+	  paramList.add(play_id);
+	  rs = execQuery(61, paramList);
+	  // query =  "SELECT `score` FROM `play` WHERE `id`=" + play_id;
+
 	  rs.next();
 	  adjGraph_string = rs.getString("score");
 	  if(adjGraph_string != null)

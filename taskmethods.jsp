@@ -1,13 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page errorPage="error.jsp" %>
 
 <html>
 
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
     <%
-       String task_name = (String) session.getAttribute("theTaskName");
-       Integer method_count =  (Integer) session.getAttribute( "theCount" );
+       String tname = (String) session.getAttribute("theTaskName");
+Integer mcount =  Integer.parseInt((String)session.getAttribute( "theMethodCount" ));
     %>
     <script src="helper_script.js"></script>
   </head>
@@ -28,7 +27,7 @@
       <br>
       <table align="center">
 	<tr><td class="buttons" align="center">
-	    <a class="positive">Task : <%= task_name %> </a>
+	    <a class="positive">Task : <%= tname %> </a>
 	    <br />
 	    <br />
 	    <a class="regular">Enter Method Names </a>
@@ -37,7 +36,7 @@
 	      
 	   <%
 	     int i=0;
-	     for(i=0; i<method_count; i++)
+	     for(i=0; i<mcount; i++)
 				      {
 				      %>
               <div class="field">					  
@@ -46,7 +45,7 @@
 	      </div>
 	     <% } %>
 	     
-	     <input type= hidden name= m_count value= <% out.println(method_count); %> >
+	     <input type= hidden name= m_count value= <% out.println(mcount); %> >
 	     <br />
 	     <div class="buttons"> 
 		   

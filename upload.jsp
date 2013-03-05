@@ -2,23 +2,15 @@
 <%@ page import="java.lang.*" %>
 <%@ include file="dbconnect.jsp" %>
 
+<%
+      String task_id = (String) session.getAttribute( "theTask_ID" );
+       String tname = (String) session.getAttribute("theTaskName");
+%>  
+
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
     <title>File Uploading Form</title>
-
-<%
-   int task_id =  (Integer)session.getAttribute( "theTask_ID" );
-%>
-
-  <jsp:scriptlet><![CDATA[
-       String tname = (String) session.getAttribute("theTaskName");
-       String query = "SELECT * FROM `method` WHERE `task_id` = " + task_id;
-       rs = stmt.executeQuery(query);
-       int i=0;
-
-  ]]></jsp:scriptlet>
-  
   </head>
   <body>
     <table align = center>
@@ -36,8 +28,12 @@
 	   <td>	<input type="file" name="original" /></td>
 	</tr>
 	<%
+	   paramList.clear();
+           paramList.add(task_id);
+           //String query = "SELECT * FROM `method` WHERE `task_id` = " + task_id;
+           rs = execQuery(120, paramList);
+           int i=0;
 	   String m_name;
-           i=0;
            while(rs.next()) { 
 	       i++;
 	       m_name = rs.getString("name");

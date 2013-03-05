@@ -3,7 +3,7 @@
 <%@ include file="dbconnect.jsp" %>
 <%
    String code = request.getParameter("code");
-   int task_id =  (Integer)session.getAttribute( "theTask_ID" );
+   String task_id =  (String) session.getAttribute( "theTask_ID" );
 
    out.println(code + ":: ");
    String[] email = request.getParameterValues( "email" );
@@ -15,26 +15,47 @@
    }
 
    out.println(size);
-   String query =  "INSERT INTO `game` (`task_id`, `code`) VALUES ('" + task_id + "', '" + code + "')" ;
-   int resultq = stmt.executeUpdate(query);
+
+   paramList.clear();
+   paramList.add(task_id);
+   paramList.add(code);
+
+   // String query =  "INSERT INTO `game` (`task_id`, `code`) VALUES ('" + task_id + "', '" + code + "')" ;
+
+   int resultq = 1;
+   resultq = execUpdate(80, paramList);
+
+   // int resultq = stmt.executeUpdate(query);
    int flag=0; 
-   int game_id=0;
+   String game_id="";
    if(resultq == 0)
        flag = 1;
 
-query = "SELECT id as game_id FROM `game` WHERE `code` = '" + code +"'";
-rs = stmt.executeQuery(query);
+   paramList.clear();
+   paramList.add(code);
+   rs = execQuery(81, paramList);
+
+// query = "SELECT id as game_id FROM `game` WHERE `code` = '" + code +"'";
+// rs = stmt.executeQuery(query);
+
 if(rs.next())
-    game_id = Integer.parseInt(rs.getString("game_id"));
+    game_id = rs.getString("id");
 int i;
+String query = "";
 for(i=0; i<size; i++) {
-    query =  "INSERT INTO `play` (`game_id`, `code`, `player_email_id`) VALUES ('" + game_id + "', '" + code + "', '" + email[i] + "')" ;
-    resultq = stmt.executeUpdate(query);
+    paramList.clear();
+    paramList.add(game_id);
+    paramList.add(code);
+    paramList.add(email[i]);
+    resultq = execUpdate(82, paramList);
+    out.println("\n RSQ=" + resultq);
+    
+    // query =  "INSERT INTO `play` (`game_id`, `code`, `player_email_id`) VALUES ('" + game_id + "', '" + code + "', '" + email[i] + "')" ;
+    // resultq = stmt.executeUpdate(query);
     if(resultq == 0)
 	flag = 1;
 
 }
-
 
 
 if(flag == 1) {

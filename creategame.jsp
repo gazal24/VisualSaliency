@@ -22,7 +22,7 @@
   </head>
   <body>
   <%
-     int task_id = (Integer)session.getAttribute( "theTask_ID" );
+     String task_id = (String) session.getAttribute( "theTask_ID" );
      String uname = (String) session.getAttribute("theUname");
   %>
     <div align="center" width="800">
@@ -34,7 +34,10 @@
 
     <div align="center">
        <%
-      	 rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
+         paramList.clear();
+         paramList.add(task_id);
+         rs = execQuery(70, paramList);
+         // rs = stmt.executeQuery("Select * from task WHERE id=" + task_id);
          if(rs.next()) {
 	     String tname = rs.getString("name");
 	     out.println("<b>Task Name : </b>" + tname);

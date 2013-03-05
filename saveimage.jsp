@@ -7,7 +7,7 @@
 <%@ include file="dbconnect.jsp"%>
 
 <% 
-   int task_id = (Integer)session.getAttribute( "theTask_ID" );
+   String task_id = (String) session.getAttribute( "theTask_ID" );
    String uname = (String) session.getAttribute("theUname");
    String tname = (String) session.getAttribute("theTaskName");
 //   String sname = (String) request.getParameter("set_name");
@@ -16,17 +16,31 @@
 %>
 
 <%      
-String query = "INSERT INTO `set` (`task_id`, `name`) VALUES ('"+ task_id+"','"+ sname+"')";
-stmt.executeUpdate(query);
-query = "SELECT max(`id`) as set_id FROM `set` WHERE task_id='" + task_id + "'";
-rs = stmt.executeQuery(query);
+String query;
+paramList.clear();
+paramList.add(task_id);
+paramList.add(sname);
+int resultq = execUpdate(130, paramList);
+// String query = "INSERT INTO `set` (`task_id`, `name`) VALUES ('"+ task_id+"','"+ sname+"')";
+
+paramList.clear();
+paramList.add(task_id);
+// query = "SELECT max(`id`) as set_id FROM `set` WHERE task_id='" + task_id + "'";
+rs = execQuery(131, paramList);
 rs.next();
 String set_id = rs.getString("set_id");
-query = "UPDATE `set` SET `name` = '"+ set_id +"' WHERE  `set`.`id` ="+set_id+"";
-stmt.executeUpdate(query);
 
-query = "SELECT * from method WHERE task_id=" + task_id;
-rs = stmt.executeQuery(query);
+paramList.clear();
+paramList.add(set_id);
+paramList.add(set_id);
+//query = "UPDATE `set` SET `name` = '"+ set_id +"' WHERE  `set`.`id` ="+set_id+"";
+execUpdate(132, paramList);
+
+paramList.clear();
+paramList.add(task_id);
+//query = "SELECT * from method WHERE task_id=" + task_id;
+rs = execQuery(133, paramList);
+
 String mname;
 %>
 
