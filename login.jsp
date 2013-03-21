@@ -82,6 +82,7 @@ arr = (int[][])xstreamf.fromXML(xml);
     <div align="center" width="800">
       <p id="time"> </p>
       <%@ include file = "errormsg.jsp" %>
+      <% session.invalidate(); %>
     </div>
     <div width="800">
       <table align="center" width="800">

@@ -1,14 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="dbconnect.jsp" %>
 
-
 <%
+session.setMaxInactiveInterval(Integer.parseInt(context.getInitParameter("SESSION-MAX-INACTIVE-INTERVAL")));      
+
 int login_type = Integer.parseInt(request.getParameter( "login_type" ));
 out.println(login_type);
 
 int login_flag = 0;	  
 String task_id="0";
-String uname = "max";
+String uname = "";
 String name = "";
 
 // STANDARD IMPLEMENTATION OF RMI LAYER
@@ -51,6 +52,7 @@ if(login_type == 1) { //User Login
 	session.setAttribute("theName", name );
 	session.setAttribute("theUname", uname );
 	session.setAttribute("thePasswd", passwd);
+	session.setAttribute("isValid", "yes");
     }
 }
 
@@ -92,6 +94,7 @@ else if(login_type == 2) { // Player Login
 	session.setAttribute("theName", name );
 	uname = crs.getString("uname");
 	session.setAttribute("theUname", uname );
+	session.setAttribute("isValid", "yes");
     }
 }
     
