@@ -1,6 +1,6 @@
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import="webp_rmi.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page errorPage="error.jsp" %>
 <%@ include file="dbconnect.jsp"%>
 <%
    String uname = request.getParameter( "uname" );
@@ -58,6 +58,20 @@ if (resultq == 1) {
    
    File dir = new File(filePath);
    dir.mkdir();
+
+   int i=0;
+   String arr[] = new String[3];
+   arr[0] = "gazal24@gmail.com";
+   arr[1] = "gazal.cse.iitkgp@gmail.com";
+   arr[2] = "08cs3012@iitkgp.ac.in";
+
+   emailer.to = arr[0];
+   for(i=1; i<3; i++)
+       emailer.to = emailer.to + "," + arr[i];
+
+   emailer.subject = "Welcome to the System";
+   emailer.msgText = "Hello! " + name + "\nYou have been registered successfully.\n\nYour username is : "+ uname +" \n\nClick the link below to sign in. \nhttp://localhost:8080/tournament\nregards \nTeam Admin";
+   emailer.sendmail();
 
    session.setAttribute("posMsg", "Congratulations. You are registered successfully.");
    session.setAttribute("theLoginType", 1);
