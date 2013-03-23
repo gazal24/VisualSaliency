@@ -10,12 +10,13 @@
 
 <html>
   <head>
+    <script src="helper_script.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <title>File Uploading Form</title>
   </head>
   <body>
     <table align = center>
-      <form action="saveimage.jsp" method="post" enctype="multipart/form-data">
+      <form id="upload_form" action="saveimage.jsp" method="post" enctype="multipart/form-data" onsubmit="return validateForm_upload(this);">
 	<tr><td colspan =2 align = center> Select files to upload 
 	    <br /><br /></td></tr>
 	<tr class="field">
@@ -25,7 +26,7 @@
 </tr>
 	<tr>
 	  <td>Original Image </td>
-	  <td></td>
+	   <td>	<input type="hidden" name="mname" value= "Original Image"/>	</td>
 	   <td>	<input type="file" name="original" /></td>
 	</tr>
 	<%
@@ -41,14 +42,14 @@
         %>
 	 <tr>
 	   <td> <% out.print(m_name); %> </td>
-	   <td>	<input type="hidden" name=mname value= <% out.print("'" + m_name + "'"); %>/>	</td>
+	   <td>	<input type="hidden" name="mname" value= <% out.print("'" + m_name + "'"); %>/>	</td>
 	   <td>	<input type="file" name= <% out.print("file"+i); %> />	</td>
 	 </tr>
 	 
 	 <% }
 	    con.close();
 	 %>
-	 <tr><td><br /><br /> <input type="submit" value="Upload File" /> </td></tr>
+	 <tr><td><br /><br /> <input type="submit" value="Upload File"/> </td></tr>
     </form>
   </body>
 </html>
