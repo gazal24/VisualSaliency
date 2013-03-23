@@ -52,8 +52,7 @@ Integer mcount =  Integer.parseInt((String)session.getAttribute( "theMethodCount
 	       <button type="submit" class="positive" name="save"> 
 		 <img src="images/apply2.png" alt=""/> save
 	       </button>
-	       
-	       <button type="button" class="regular" onclick="formReset('method_form')" value="Reset">
+	       <button type="button" class="regular" onclick="this.form.reset()" value="Reset">
 		 <img src="images/textfield_key.png" alt=""/> Reset
 	       </button>	  
 	     </div>

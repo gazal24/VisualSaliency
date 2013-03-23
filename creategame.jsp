@@ -11,7 +11,7 @@
       id = 2;
       function add_email_field(){
       var obj = document.createElement('div');
-      obj.innerHTML = "<br /> <a class='field'><input type='text' name='email' size='20' placeholder='Email id " + id + "' /></a>"
+      obj.innerHTML = "<br /> <a class='field'><input type='text' name='email' size='20' placeholder='Email id " + id + "' onblur='validateForm_email(this)'></a>"
       document.getElementById("email_field").appendChild(obj);
 
       id++;
@@ -56,17 +56,17 @@
     
     <div align="center">
       <form method="post" action="savegame.jsp" id="game_form">
-	<span onclick="add_email_field()">[+]</span>
+	<span onclick="add_email_field()">Add more [+]</span>
 	<input type="hidden" name="code" value=<% out.println(code); %> />
 	<div id="email_field">
-	  <a class="field"><input type="text" name="email" size="20" placeholder="Email id"></input></a>
+	  <a class="field"><input type="text" name="email" size="20" placeholder="Email id" onblur="validateForm_email(this)"></input></a>
 	</div>
 	<br />
 	<div class="buttons">
 	  <button type="submit" class="positive" name="save"> 
 	    <img src="images/apply2.png" alt=""/> Save
 	  </button>
-	  <button type="button" class="regular" onclick="formReset('game_form')">
+	  <button type="button" class="regular" onclick="this.form.reset()">
 	    <img src="images/textfield_key.png" alt=""/> Reset
 	  </button>
 	</div>

@@ -5,6 +5,7 @@
 <%
    String uname = request.getParameter( "uname" );
    String name = request.getParameter( "name" );
+   String email = request.getParameter( "email" );
    String passwd = request.getParameter( "passwd" );
    String repasswd = request.getParameter( "repasswd" );
 %>
@@ -30,6 +31,10 @@ else {
 	session.setAttribute("errMsg", "Name cannot be blank.");
 	response.sendRedirect("register.jsp");
     }
+    else if(email == ""){
+	session.setAttribute("errMsg", "Email cannot be blank.");
+	response.sendRedirect("register.jsp");
+    }
     else if(passwd == ""){
 	session.setAttribute("errMsg", "Password cannot be blank.");
 	response.sendRedirect("register.jsp");
@@ -42,6 +47,7 @@ else {
 	paramList.clear();
 	paramList.add(uname);
 	paramList.add(name);
+	paramList.add(email);
 	paramList.add(passwd);
 	resultq = execUpdate(141, paramList);
 	// String query =  "INSERT INTO `user` (`uname`, `name`, `password`, `age`) VALUES ('" + uname + "', '" + name + "', '" + passwd + "', '22 ')" ;
@@ -53,6 +59,8 @@ con.close();
 if (resultq == 1) {
    session.setAttribute("theUname", uname );
    session.setAttribute("theName", name );
+   session.setAttribute("theLoginType", 1);
+   session.setAttribute("isValid", "yes");
    String filePath = "/var/lib/tomcat6/webapps/tournament/uploads/" + uname;
    //String filePath = context.getInitParameter("file-upload");
    
@@ -60,21 +68,21 @@ if (resultq == 1) {
    dir.mkdir();
 
    int i=0;
-   String arr[] = new String[3];
-   arr[0] = "gazal24@gmail.com";
-   arr[1] = "gazal.cse.iitkgp@gmail.com";
-   arr[2] = "08cs3012@iitkgp.ac.in";
+   // String arr[] = new String[3];
+   // arr[0] = "gazal24@gmail.com";
+   // arr[1] = "gazal.cse.iitkgp@gmail.com";
+   // arr[2] = "08cs3012@iitkgp.ac.in";
 
-   emailer.to = arr[0];
-   for(i=1; i<3; i++)
-       emailer.to = emailer.to + "," + arr[i];
+   // emailer.to = arr[0];
+   // for(i=1; i<3; i++)
+   //     emailer.to = emailer.to + "," + arr[i];
 
-   emailer.subject = "Welcome to the System";
-   emailer.msgText = "Hello! " + name + "\nYou have been registered successfully.\n\nYour username is : "+ uname +" \n\nClick the link below to sign in. \nhttp://localhost:8080/tournament\nregards \nTeam Admin";
+   emailer.to = email;
+   emailer.subject = "Welcome to our System";
+   emailer.msgText = "Hello! " + name + "\nYou have been registered successfully.\n\nYour username is : "+ uname +" \n\nClick the link below to sign in. \nhttp://localhost:8080/tournament\n\nregards \nTeam Admin";
    emailer.sendmail();
 
    session.setAttribute("posMsg", "Congratulations. You are registered successfully.");
-   session.setAttribute("theLoginType", 1);
    response.sendRedirect("task.jsp");
 }
 %>

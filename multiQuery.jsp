@@ -3,6 +3,7 @@
 <%@ page import="com.thoughtworks.xstream.XStream"%>
 <%
 String type = request.getParameter("type");
+ResultSet rs1=null;
 
 if(type.equals("returnOriginal")) { 
     String uname = (String) session.getAttribute("theUname");
@@ -27,14 +28,21 @@ if(type.equals("saveScore")) {
 if(type.equals("updatePasswd")) {
     try {
 	String uname = (String) session.getAttribute("theUname");
-	String passwd = request.getParameter( "new_pass" );
-	String cnf_passwd = request.getParameter( "confirm_pass" );
-	if(!cnf_passwd.equals(passwd) || passwd.equals("")) {
+	String old_passwd = request.getParameter( "old_pass" );
+	String new_passwd = request.getParameter( "new_pass" );
+	String cnf_passwd = request.getParameter( "cnf_pass" );
+	if(!cnf_passwd.equals(new_passwd) || new_passwd.equals("")) {
 	    session.setAttribute("errMsg", "Passwords do not match. Try again!");
 	} else {
-	    String query = "UPDATE  `proj1`.`user` SET  `password` =  '"+passwd+"' WHERE  `user`.`uname` =  '"+uname+"'";
-	    stmt.executeUpdate(query);
-	    session.setAttribute("posMsg", "Password changed successfuly!");
+	    String query = "SELECT * from `proj1`.`user` where `uname` = '" + uname + "' AND `password` = '" + old_passwd + "'";
+	    rs1 = stmt.executeQuery(query);
+	    if(rs1.next()) {
+		query = "UPDATE  `proj1`.`user` SET  `password` =  '"+new_passwd+"' WHERE  `user`.`uname` =  '"+uname+"'";
+		stmt.executeUpdate(query);
+		session.setAttribute("posMsg", "Password changed successfuly!");
+	    } else {
+	    session.setAttribute("errMsg", "Current password do not match. Try again!");
+	    }
 	}
     }
     catch(Exception e){

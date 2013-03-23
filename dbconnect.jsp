@@ -14,6 +14,10 @@ con = DriverManager.getConnection(url, "root", "root");
 stmt = con.createStatement();
 %>
 
+<%
+    // Context object is used to get context-param from WEB-INF/web.xml.
+    ServletContext context = pageContext.getServletContext();
+%>
 
  <!-- Required for appconfig class -->
 <%@ page import="webp_rmi.*" %> 

@@ -1,38 +1,10 @@
-<%@page contentType="text/html;charset=UTF-8" import="java.util.*, java.sql.*,java.lang.*,webp_rmi.*,java.rmi.registry.*,java.rmi.*" %>
+<%@page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.*, java.sql.*,java.lang.*,webp_rmi.*,java.rmi.registry.*" %>
+<%@ page import="java.net.*" %>
 
 <%@ page import="Stra.Strategy" %>
 <%@ page import="Stra.Node" %>
-<%@ page import="com.thoughtworks.xstream.XStream"%>
-<%@ page import="com.sun.rowset.CachedRowSetImpl"%>
 
-<%
-appconfig pinfo=new appconfig();
-int thisPort=Integer.parseInt(pinfo.blport);
-String thisAddress=pinfo.netaddr;
-jdbcrmi data=null;
-String xml1=null;
-String query="Select * from user";
-XStream xstream1 = new XStream();
-CachedRowSetImpl crs = new CachedRowSetImpl();
-String str=null;
-try
-    {
-	Registry registry=LocateRegistry.getRegistry("127.0.0.1", thisPort);
-	data=(jdbcrmi)(registry.lookup("jdbcrmi"));
-	xml1=data.ExecuteSql(query);
-	crs = (CachedRowSetImpl)xstream1.fromXML(xml1); // de-serialize from XML
-	while(crs.next()) {
-	    str = crs.getString("uname");
-	    if(str.equals("max"))
-		out.println(str);
-	}
-    }
-catch (Exception e)
-    {
-	out.println("Error found. Check <br></br>" + e.toString());
-    }
-%>
-    
 
 <%
     Strategy sa = new Strategy(2,3);
@@ -44,30 +16,12 @@ for(int i=0; i<10; i++)
     for(int j=0; j<10;j++)
 	arr[i][j] = (i+1)*(j+1);
 
-
-XStream xstream = new XStream();
-XStream xstreamf = new XStream();
-String xml = xstream.toXML(arr); // serialize to XML
-//out.println(xml);
-arr = (int[][])xstreamf.fromXML(xml);
-//out.println(arr[4][2]);
 %>
 <html>
   <head>
     <script src="helper_script.js"></script>
-    <%
-
-// if(session != null){
-//     session.invalidate();
-// }
-
-    %>
     <link href="style.css" rel="stylesheet" type="text/css">
     <script>
-      function formReset() {
-      document.getElementById("login_form").reset();
-      }
-
       function setTime() {
       document.getElementById("time").innerHTML = Date();
       setTimeout(function(){setTime()},900);

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.lang.*" %>
 <%@ include file="dbconnect.jsp" %>
+<%@ include file="check_session.jsp"%>
 
 <%
       String task_id = (String) session.getAttribute( "theTask_ID" );

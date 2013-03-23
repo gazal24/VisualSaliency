@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="dbconnect.jsp"%>
+<%@ include file="check_session.jsp"%>
+
 <html>
   <head>
+    <script src="helper_script.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="button.css" rel="stylesheet" type="text/css">
   </head>
@@ -80,12 +83,13 @@
 	 img_path = "uploads/" + uname + "/" + tname + "/" + sname + "/" + "original" + ".jpg";
 
 	 %>
-      <p>
+      <br>
+      <br>
     <div class="img_thumb">
       <table align="center" width="500">
       <tr>
 	<td class="buttons" align="center"><br>
-	  <img src= <% out.print(img_path);%> alt= <% out.print("Original Image");%> height= 150px /> <br/>
+	  <img src= <%= img_path.replaceAll(" ", "%20")%> alt= <%= "Original Image" %> height= 150px /> <br/>
 	  <a class="regular"> <% out.print("Original Image"); %> </a>
        </td>
 	<%
@@ -94,7 +98,7 @@
 //	 if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
       %> 
        <td class="buttons" width="500" align="center"><br>
-	 <img src= <% out.print(img_path);%> alt= <% out.print(mname[i]);%> height= 150px /> <br/>
+	<img src= <%= img_path.replaceAll(" ", "%20") %> alt= <%= mname[i]%> height= 150px /> <br/>
 	 <a class="regular"> <% out.print(mname[i]); %> </a>
       </td>
       <%

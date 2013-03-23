@@ -1,3 +1,10 @@
+body 
+{
+    background-image:url('bg-site-2.png');
+    background-color:#ffffff;
+}
+
+
 .scroll_test {
 width:150px;
 overflow: scoll;

@@ -14,9 +14,10 @@
     <div align="center">
 	  <br>
 	  <br>
-      <form id="register_form" method="get" action="savename.jsp">
+      <form id="register_form" method="POST" action="savename.jsp" name="registration">
 	<div class="field"> <input type="text" name="uname" size="20" placeholder="Username"> </div>
 	<div class="field"> <input type="text" name="name" size="50" placeholder="Name"> </div>
+	<div class="field"> <input type="text" name="email" size="50" placeholder="Email" onblur="validateForm_email(this);"> </div>
 	<div class="field"> <input type="password" name="passwd" size="50" placeholder="Password"> </div>
 	<div class="field"> <input type="password" name="repasswd" size="50" placeholder="Confirm Password"> </div>
 	<br>
@@ -26,7 +27,7 @@
             Register
 	  </button>
 
-	  <button type="button" class="regular" onclick="formReset('register_form')" value="Reset">
+	  <button type="button" class="regular" onclick="this.form.reset()" value="Reset">
 	    <img src="images/textfield_key.png" alt=""/> Reset
 	  </button>	  
 

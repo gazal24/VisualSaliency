@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="webp_rmi.*" %>
 <%@ page import="java.lang.*" %>
 <%@ include file="dbconnect.jsp" %>
 <%
@@ -55,6 +56,10 @@ for(i=0; i<size; i++) {
     if(resultq == 0)
 	flag = 1;
 
+    emailer.to = email[i];
+    emailer.subject = "Invitation from System";
+    emailer.msgText = "Hello! \nYou have been invited to play a tournament.\n\nUse your email id and following code to login \nCode: "+ code +" \n\nClick the link below to login. \nhttp://localhost:8080/tournament\nregards \nTeam Admin";
+    emailer.sendmail();
 }
 
 

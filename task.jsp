@@ -1,25 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
 <%@ include file="dbconnect.jsp" %>
+<%@ include file="check_session.jsp" %>
+
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="button.css" rel="stylesheet" type="text/css">
     <script src="helper_script.js"></script>
   </head>
-  <body>
+  <body align="center">
 
-    <div align="center" width="800">
+    <div width="800" align="center">
       Hello! <%= session.getAttribute("theName") %> [<%= session.getAttribute("theUname") %>] <br />
       <%@ include file = "errormsg.jsp" %>
-      <% String referrer = request.getHeader("referer"); 
-        out.println("<p> use this sometime : " + referrer + "</p>");
-       %>
-      <a float="right" class="large button black" href="settings.jsp">Account Setting</a>
+      <%  String referrer = request.getHeader("referer"); %>
     </div>
+	<div align="right"><a class="small button black" href="logout.jsp"> Logout </a> <p>
+      <a float="right" class="large button black" href="settings.jsp">Account Setting</a>      
+	</div>
+	    
+
     <div class="img_thumb">
       <table align="center" width="600">
 	<% String uname = (String) session.getAttribute("theUname"); %>
+
 
        <%
          paramList.clear();
@@ -63,10 +68,9 @@
 	    Create
 	  </button>
 
-	  <a href="task.jsp" class="regular">
+	  <button type="button" class="regular" onclick="this.form.reset()" value="Reset">
             <img src="images/textfield_key.png" alt=""/>
             Reset
-	  </a> 
 	</div>
       </form>
       </td></tr></table>

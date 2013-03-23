@@ -1,4 +1,3 @@
-<%@ page errorPage="error.jsp" %>
 <%@ page import="java.sql.*" %>
 
 <table>

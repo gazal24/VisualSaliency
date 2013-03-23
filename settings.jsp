@@ -58,7 +58,7 @@
       </div>
 
 
-      <div id="content" align="left" style="border:1px solid gray; width:450px; margin-bottom: 1em; padding: 10px">
+      <div id="content" align="left" style="border:1px solid gray; width:450px; height:300px; margin-bottom: 1em; padding: 10px">
 	<div id="Tab_content">
 
 	</div>
