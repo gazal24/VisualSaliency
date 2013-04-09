@@ -1,5 +1,12 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
+
+<%
+response.setHeader("Pragma","no-cache"); // HTTP 1.0
+response.setHeader("Cache-Control","no-store"); // HTTP 1.1
+response.setDateHeader("Expires", 0);
+%>
+
 <jsp:declaration>
       
 Statement stmt;
@@ -13,13 +20,11 @@ Class.forName("com.mysql.jdbc.Driver");
 con = DriverManager.getConnection(url, "root", "root"); 
 stmt = con.createStatement();
 %>
-
 <%
     // Context object is used to get context-param from WEB-INF/web.xml.
     ServletContext context = pageContext.getServletContext();
 %>
-
- <!-- Required for appconfig class -->
+<!-- Required for appconfig class -->
 <%@ page import="webp_rmi.*" %> 
 
 <!-- Required for Registry class -->

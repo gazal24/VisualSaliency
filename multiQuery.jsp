@@ -65,4 +65,21 @@ if(type.equals("updateName")) {
     }
     response.sendRedirect("settings.jsp");
 }
+
+
+if(type.equals("updateTaskDetail")) {
+    try {
+	String task_id = (String) session.getAttribute("theTask_ID");
+	String task_detail = request.getParameter("taskdetail");
+
+	String query = "UPDATE  `proj1`.`task` SET  `detail` =  '" + task_detail + "' WHERE  `task`.`id` ="+task_id+"";
+	//	String query = "UPDATE  `proj1`.`user` SET  `name` =  '"+name+"' WHERE  `user`.`uname` =  '"+uname+"'";
+	stmt.executeUpdate(query);
+	session.setAttribute("posMsg", "Task Detail updated successfuly");
+    }
+    catch(Exception e){
+	session.setAttribute("errMsg", "Error in updating detail!");
+    }
+    response.sendRedirect("task.jsp");
+}
 %>

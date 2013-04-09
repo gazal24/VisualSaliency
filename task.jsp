@@ -3,77 +3,72 @@
 <%@ include file="dbconnect.jsp" %>
 <%@ include file="check_session.jsp" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <link href="button.css" rel="stylesheet" type="text/css">
     <script src="helper_script.js"></script>
+    <%@ include file ="head.html"%>
+    <%
+       response.setHeader("Pragma","no-cache"); // HTTP 1.0
+       response.setHeader("Cache-Control","no-store"); // HTTP 1.1
+       response.setDateHeader("Expires", 0);
+       %>
   </head>
-  <body align="center">
-
-    <div width="800" align="center">
-      Hello! <%= session.getAttribute("theName") %> [<%= session.getAttribute("theUname") %>] <br />
+  <body>
+    <%@ include file = "navbar.jsp" %>
+    <div class="container">
       <%@ include file = "errormsg.jsp" %>
-      <%  String referrer = request.getHeader("referer"); %>
     </div>
-	<div align="right"><a class="small button black" href="logout.jsp"> Logout </a> <p>
-      <a float="right" class="large button black" href="settings.jsp">Account Setting</a>      
+    <div class="wrap">
+      <div class="container">
+	<div>
+	  <a href="newtask.jsp" class="btn btn-inverse pull-right">Create Task</a>
 	</div>
-	    
-
-    <div class="img_thumb">
-      <table align="center" width="600">
-	<% String uname = (String) session.getAttribute("theUname"); %>
-
-
-       <%
-         paramList.clear();
-         paramList.add(uname);
-         // query = "SELECT * from task WHERE uname = '" + uname +"'";
-         crs = execQuery(30, paramList);
-
-	 int counter = 0;
-	 String img_path;
- 	 out.println("<tr>");
-         while(crs.next()) {
-           String tname = crs.getString("name"); 
-           String task_id = crs.getString("id");
-	   img_path = "uploads/" + uname + "/" + tname + "/" + "original" + ".jpg";
-  	   if(counter%3 == 0) { out.println("</tr><tr>"); counter = 0;}
-      %> 
-	<td class="buttons" width="500" align="center"><br>
-	 <!-- <img src= <% out.print(img_path);%> alt= <% out.print(tname);%> height=100px width= 150px /> <br/> -->
-	  <a class="regular" href=<% out.print("method.jsp?taskid="+task_id); %> ><h1> <% out.print(tname); %> </td>
-        <%
-	 counter++;
-         }
-         con.close();
-	%>
-	</tr>
-      </table>
-    </div>
-    <div align="center">
-    <table>
-      <tr><td align="center"><br> <br>
-	  
-      <form method=post action="savetask.jsp">
-      	New Task :
-	<div class="field"> <input type="text" name="name" size="20" placeholder="Task Name"> </div>
-	<div class="field"> <input type="text" name="count" size="50" placeholder="2"> </div>
-	<br>
-	<div class="buttons"> 
-
-	  <button type="create" class="positive" name="save"> 
-	    <img src="images/apply2.png" alt=""/>
-	    Create
-	  </button>
-
-	  <button type="button" class="regular" onclick="this.form.reset()" value="Reset">
-            <img src="images/textfield_key.png" alt=""/>
-            Reset
+	<div class="row-fluid">
+	  <ul class="thumbnails">
+	    <% String uname = (String) session.getAttribute("theUname"); %>
+	    <%
+               paramList.clear();
+               paramList.add(uname);
+               // query = "SELECT * from task WHERE uname = '" + uname +"'";
+               crs = execQuery(30, paramList);
+	       
+	       int counter = 0;
+	       String img_path;
+               while(crs.next()) {
+               String tname = crs.getString("name"); 
+               String task_id = crs.getString("id");
+               String task_detail = crs.getString("detail");
+	       img_path = "uploads/" + uname + "/" + tname + "/" + "103/" +"original" + ".jpg";
+  	       if(counter%3 == 0) { %> 
+	  </ul>
 	</div>
-      </form>
-      </td></tr></table>
+	<div class="row-fluid">
+	  <ul class="thumbnails">
+	    <% counter = 0; 
+	       }
+	    %> 
+            <li class="span4">
+	      <div class="thumbnail">
+		<div class="thumbnail" style="height:200px;">
+                  <img data-src="holder.js/300x300" alt="" style="max-height: 200px; max-width: 350px;" src=<%= img_path %>>
+		</div>
+                <div class="caption">
+                  <h3><% out.print(tname); %></h3>
+                  <p style="height:80px;overflow:hidden"><%= task_detail %></p>
+                  <p><a href=<% out.print("method.jsp?taskid="+task_id);%> class="btn btn-primary btn-small">View</a> <a href="#" class="btn btn-small">Manage</a></p>
+                </div>
+	      </div>
+            </li>
+            <%
+	       counter++;
+               }
+               con.close();
+	    %>
+          </ul>
+        </div>
       </div>
+    </div>
+    <%@ include file = "footer.html" %>
   </body>
 </html>

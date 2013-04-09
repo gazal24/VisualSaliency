@@ -5,6 +5,11 @@
 <%@ page import="Stra.Strategy" %>
 <%@ page import="Stra.Node" %>
 
+<%
+response.setHeader("Pragma","no-cache"); // HTTP 1.0
+response.setHeader("Cache-Control","no-store"); // HTTP 1.1
+response.setDateHeader("Expires", 0);
+%>
 
 <%
     Strategy sa = new Strategy(2,3);

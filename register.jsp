@@ -1,42 +1,49 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
 
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link href="style.css" rel="stylesheet" type="text/css">
+  <%@ include file ="head.html"%>
+  </head>
     <script src="helper_script.js"></script>
+    <%@ include file ="head.html"%>
   </head>
   <body>
-    <div align="center">
+    <%@ include file = "navbar.jsp" %>
+    <div class="container">
       <%@ include file = "errormsg.jsp" %>
-    </div>
-    <div align="center">
-	  <br>
-	  <br>
-      <form id="register_form" method="POST" action="savename.jsp" onsubmit="return validateForm_register(this);">
-      <div class="field"> <input type="text" name="uname" size="20" placeholder="Username" onfocus="this.parentNode.className='field';"><br><span style="color:red; font-size:12px" id="errormsg_uname"></span>
-      </div>
-	<div class="field"> <input type="text" name="name" size="50" placeholder="Name"  onfocus="this.parentNode.className='field';"><br><span style="color:red; font-size:12px" id="errormsg_name"></span> </div>
-	<div class="field"> <input type="text" name="email" size="50" placeholder="Email" onblur="validateForm_email(this);" onfocus="this.parentNode.className='field';"><br><span style="color:red; font-size:12px" id="errormsg_email"></span></div>
-	<div class="field"> <input type="password" name="passwd" size="50" placeholder="Password" onfocus="this.parentNode.className='field';"><br><span style="color:red; font-size:12px" id="errormsg_passwd"></span> </div>
-	<div class="field"> <input type="password" name="repasswd" size="50" placeholder="Confirm Password" onfocus="this.parentNode.className='field';"><br><span style="color:red; font-size:12px" id="errormsg_repasswd"></span> </div>
-	<br>
-	<div class="buttons"> 
-	  <button type="submit" class="positive" name="save"> 
-	    <img src="images/apply2.png" alt=""/>
-            Register
-	  </button>
+      <form  class="form-upload span4 offset4" id="register_form" method="POST" action="savename.jsp" onsubmit="return validateForm_register(this);">
+        <h3 class="form-signin-heading">New User Registration</h3>
 
-	  <button type="button" class="regular" onclick="this.form.reset()" value="Reset">
-	    <img src="images/textfield_key.png" alt=""/> Reset
-	  </button>	  
-
-	  <a href="login.jsp" class="negative">
-            <img src="images/cross.png" alt=""/>
-	    Back
-	  </a>
+	<div class="control-group controls">
+	  <input type="text" name="uname" placeholder="Username" onfocus="this.parentNode.className='control-group controls';">
+	  <span class="help-inline" id="errormsg_uname"></span>
 	</div>
+
+	<div  class="control-group controls">
+	<input type="text" name="name" placeholder="Name" onfocus="this.parentNode.className='control-group controls';">
+	<span class="help-inline" id="errormsg_name"></span>
+	</div>
+
+	<div  class="control-group controls">
+	<input type="text" name="email" placeholder="Email" onblur="validateForm_email(this);" onfocus="this.parentNode.className='control-group controls';">
+	<span class="help-inline" id="errormsg_email"></span>
+	</div>
+
+
+	<div  class="control-group controls">
+	<input type="password" name="passwd" placeholder="Password" onfocus="this.parentNode.className='control-group controls';">
+	<span class="help-inline" id="errormsg_passwd"></span>
+	</div>
+
+
+	<div  class="control-group controls">
+	<input type="password" name="repasswd" placeholder="Confirm Password" onfocus="this.parentNode.className='control-group controls';">
+	<span class="help-inline" id="errormsg_repasswd"></span>
+	</div>
+        <button class="btn btn-primary" type="submit">Register</button>
       </form>
+    </div> <!-- /container -->
   </body>
 </html>

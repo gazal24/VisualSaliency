@@ -98,19 +98,20 @@
 
       for(i=0; i<methodCount; i++) 
 	  method_mutableOrder[i] = method[i];
-          
-
-
     %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link href="button.css" rel="stylesheet" type="text/css">
+    <%@ include file ="head.html"%>
   </head>
-  <body align="center">
-    <div>
-       <% if(loginType == 2) out.println(); %>
+  <body>
+    <%@ include file = "navbar.jsp" %>
+    <div class="container">
+      <%@ include file = "errormsg.jsp" %>
     </div>
+    <div class="wrap">
+      <div class="container">
     <table class="image_panel result">
       <tr>
 	<td  colspan="100">Score</td>
@@ -196,5 +197,8 @@ for(i=0; i<methodCount; i++) {
 %>
 </table>
 
-</body>
+      </div>
+    </div>
+    <%@ include file = "footer.html" %>
+  </body>
 </html>

@@ -58,7 +58,7 @@ for(i=0; i<size; i++) {
 
     emailer.to = email[i];
     emailer.subject = "Invitation from System";
-    emailer.msgText = "Hello! \nYou have been invited to play a tournament.\n\nUse your email id and following code to login \nCode: "+ code +" \n\nClick the link below to login. \nhttp://localhost:8080/tournament\nregards \nTeam Admin";
+    emailer.msgText = "Hello! \nYou have been invited to play a tournament.\n\nUse the details below to login \nLogin id: "+ email[i] +" \nCode: "+ code +" \n\nClick the link to visit the site. \nhttp://localhost:8080/tournament\nregards \nTeam Admin";
     emailer.sendmail();
 }
 

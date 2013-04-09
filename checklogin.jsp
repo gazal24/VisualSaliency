@@ -90,8 +90,7 @@ else if(login_type == 2) { // Player Login
 	// rs = stmt.executeQuery("SELECT `uname` FROM `task` WHERE `id` = '"+ task_id +"'");
 	crs = execQuery(23, paramList);
 	crs.next();
-	name = "Volunteer / Player!";
-	session.setAttribute("theName", name );
+	session.setAttribute("theName", email_id );
 	uname = crs.getString("uname");
 	session.setAttribute("theUname", uname );
 	session.setAttribute("isValid", "yes");
@@ -102,15 +101,15 @@ con.close();
 
 if(login_flag == 0 && login_type == 1) {
     session.setAttribute("errMsg", "Incorrect username or password. Try again.");
-    response.sendRedirect("login.jsp");
+    response.sendRedirect("index.jsp");
 } 
 else if (login_flag == 1 && login_type == 1) {
     session.setAttribute("posMsg", "Welcome Back!.");
     response.sendRedirect("task.jsp");
 }
 else if(login_flag == 0 && login_type == 2){
-    session.setAttribute("errMsg", "Invalid Volunteer ID or Code!");
-    response.sendRedirect("login.jsp");
+    session.setAttribute("errMsg", "Incorrect Email id or Code!");
+    response.sendRedirect("index.jsp");
 }
 else if(login_flag == 1 && login_type == 2){
     session.setAttribute("posMsg", "Welcome to the tournament!");

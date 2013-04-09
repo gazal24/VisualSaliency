@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="error.jsp" %>
-<%@ include file="dbconnect.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -15,22 +14,18 @@
 	<%@ include file = "errormsg.jsp" %>
       </div> <!-- /container -->
       <div class="container">
-	<div class="container-fluid">
-	  <div class="row-fluid">
-	    <div class="span4">
-	      <ul>
-		<li><a href="#" onclick="change_content('name')">Edit Name</a></li>
-		<li><a href="#" onclick="change_content('passwd')">Change Password</a></li>
-	      </ul>
-	    </div>
-	    <div class="span5">
-	      <div id="Tab_content">
-	      </div>
-	    </div>
-	  </div>
-	</div>
+ 	<%
+	   String tname = (String)session.getAttribute("theTaskName");   
+	   String task_detail = (String)request.getParameter("taskdetail");
+	%>
+	<form action="multiQuery.jsp?type=updateTaskDetail" method="POST">
+	  <h3><%= tname %></h3>
+	  <textarea rows="10" name="taskdetail" class="input-block-level"><%= task_detail%></textarea>
+	  <button class="btn btn-primary" type="submit">Save</button>
+	</form>
       </div>
     </div>
     <%@ include file = "footer.html" %>
   </body>
 </html>
+
